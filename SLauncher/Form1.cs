@@ -20,7 +20,7 @@ namespace SLauncher
         public Form1()
         {
             InitializeComponent();
-            if (Properties.Settings.Default.gamedirectory != null)
+            if (gameD.Text == "")
             {
                 gameD.Text = Properties.Settings.Default.gamedirectory;
             }
@@ -65,6 +65,11 @@ namespace SLauncher
             SSettings sSettings = new SSettings();
             sSettings.Show();
             this.Hide();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            gameD.Text = Properties.Settings.Default.gamedirectory;
         }
     }
 }
