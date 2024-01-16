@@ -58,6 +58,10 @@ namespace SLauncher
                     arrLine[j + 5] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
                     File.WriteAllLines(setadd, arrLine);
                 }
+                else if(comboBox1.Text == gres)
+                {
+
+                }
                 else
                 {
                     MessageBox.Show("Error saving resoultion. Please check the user settings file", "Error");
