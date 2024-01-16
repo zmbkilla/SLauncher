@@ -34,5 +34,17 @@ namespace SLauncher.Properties {
                 this["gamedirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string settingdirectory {
+            get {
+                return ((string)(this["settingdirectory"]));
+            }
+            set {
+                this["settingdirectory"] = value;
+            }
+        }
     }
 }
