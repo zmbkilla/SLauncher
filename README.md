@@ -1,2 +1,2 @@
 # SLauncher
-Launcher for Starlight
+Launcher for that space game
