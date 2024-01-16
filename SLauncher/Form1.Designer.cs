@@ -36,6 +36,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.Console1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -116,6 +119,34 @@
             this.label2.Size = new System.Drawing.Size(681, 187);
             this.label2.TabIndex = 6;
             // 
+            // button5
+            // 
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button5.Location = new System.Drawing.Point(341, 274);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(144, 45);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Download game";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.AccessibleName = "pb1";
+            this.progressBar1.Location = new System.Drawing.Point(74, 378);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(620, 23);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 8;
+            this.progressBar1.Visible = false;
+            // 
+            // Console1
+            // 
+            this.Console1.Location = new System.Drawing.Point(71, 161);
+            this.Console1.Name = "Console1";
+            this.Console1.Size = new System.Drawing.Size(623, 42);
+            this.Console1.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,6 +154,9 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = global::SLauncher.Properties.Resources.BG;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Console1);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -150,6 +184,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label Console1;
     }
 }
 

@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using SevenZipExtractor;
 
 namespace SLauncher
 {
@@ -101,5 +104,67 @@ namespace SLauncher
         {
             Environment.Exit(0);
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            FolderBrowserDialog Gamedown = new FolderBrowserDialog();
+            Gamedown.Description = "Select the folder you want to download the game";
+            Gamedown.ShowDialog();
+
+            string filepath = Gamedown.SelectedPath;
+            WebClient webClient = new WebClient();
+
+
+            webClient.DownloadProgressChanged += (s, p) =>
+            {
+                progressBar1.Visible = true;
+                progressBar1.Value = p.ProgressPercentage;
+                Console1.Text = (Convert.ToString(p.UserState) + "    downloaded "+p.BytesReceived+ " of "+p.TotalBytesToReceive+" bytes. "+p.ProgressPercentage+" % complete...");
+                button4.Enabled = false;
+
+            };
+            webClient.DownloadFileCompleted += (s, p) =>
+            {
+                progressBar1.Visible = false;
+                button4.Enabled = true;
+                // any other code to process the file
+
+                using (ArchiveFile archiveFile = new ArchiveFile(filepath+"\\game.7z"))
+                {
+                    archiveFile.Extract("Output"); // extract all
+                }
+                MessageBox.Show("Download Complete!", "Notification");
+                var delres = MessageBox.Show("Do you want to delete zipped download?", "Confirmation", MessageBoxButtons.YesNo);
+                if(delres == DialogResult.Yes)
+                {
+                    File.Delete(@filepath + "\\game.7z");
+                }
+            };
+
+            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
+            webClient.DownloadFileAsync(new Uri("https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88"), @filepath + "\\game.7z");
+
+            
+
+        }
+
+        public static void DownloadProgressCallback4(object sender, DownloadProgressChangedEventArgs e)
+        {
+            
+           
+            
+
+            //MessageBox.Show("Downloading " + e.BytesReceived + " of " + e.TotalBytesToReceive + ". " + e.ProgressPercentage)
+
+            // Displays the operation identifier, and the transfer progress.
+            Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...",
+                (string)e.UserState,
+                e.BytesReceived,
+                e.TotalBytesToReceive,
+               e.ProgressPercentage);
+        }
+
+
     }
 }
