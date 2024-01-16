@@ -1,1 +1,2 @@
 # SLauncher
+Launcher for Starlight
