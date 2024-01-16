@@ -1,2 +1,2 @@
 # SLauncher
-Launcher for that space game
+Launcher for that space game.
