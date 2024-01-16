@@ -39,9 +39,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(71, 61);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(64, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.Size = new System.Drawing.Size(307, 37);
             this.label1.TabIndex = 0;
             this.label1.Text = "pso2_bin directory:";
             // 
@@ -50,14 +52,15 @@
             this.gameD.AutoSize = true;
             this.gameD.BackColor = System.Drawing.SystemColors.ControlDark;
             this.gameD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.gameD.Location = new System.Drawing.Point(71, 92);
+            this.gameD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameD.Location = new System.Drawing.Point(74, 98);
             this.gameD.Name = "gameD";
-            this.gameD.Size = new System.Drawing.Size(2, 15);
+            this.gameD.Size = new System.Drawing.Size(2, 22);
             this.gameD.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(74, 119);
+            this.button1.Location = new System.Drawing.Point(71, 123);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 22);
             this.button1.TabIndex = 2;
@@ -67,17 +70,23 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(71, 243);
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::SLauncher.Properties.Resources.test;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button2.Image = global::SLauncher.Properties.Resources.test;
+            this.button2.Location = new System.Drawing.Point(100, 265);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(144, 45);
             this.button2.TabIndex = 3;
             this.button2.Text = "Launch PSO2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(334, 243);
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button3.Location = new System.Drawing.Point(333, 265);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(144, 45);
             this.button3.TabIndex = 4;
@@ -89,6 +98,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::SLauncher.Properties.Resources.BG;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
