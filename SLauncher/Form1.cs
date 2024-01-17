@@ -412,6 +412,7 @@ namespace SLauncher
         {
             string gamedata = gameD.Text + "\\data\\win32";
             CalculateFolderCrc(gamedata);
+            MessageBox.Show("Hash code complete", "Notification");
         }
     }
 }
