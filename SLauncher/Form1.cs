@@ -212,7 +212,7 @@ namespace SLauncher
 
                 using (ArchiveFile archiveFile = new ArchiveFile(filepath+"\\game.7z"))
                 {
-                    archiveFile.Extract("Output"); // extract all
+                    archiveFile.Extract(filepath); // extract all
                 }
                 MessageBox.Show("Download Complete!", "Notification");
                 var delres = MessageBox.Show("Do you want to delete zipped download?", "Confirmation", MessageBoxButtons.YesNo);
