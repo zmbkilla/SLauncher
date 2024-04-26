@@ -462,30 +462,30 @@ namespace SLauncher
         private void button6_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Currently Disabled. Still WIP. currently being used as 7zip extraction test");
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
-            string filename = ofd.FileName;
-            string fildir = Path.GetDirectoryName(filename);
-            string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
-            ProcessStartInfo pz = new ProcessStartInfo
-
-            {
-
-                FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
-
-                UseShellExecute = false,
-                Arguments = "x \"" + filename + "\" -r -o\"" + fildir + "\\out\"",
-
-                WindowStyle = ProcessWindowStyle.Normal
-
-
-            };
-
-
-
-            Process x = Process.Start(pz);
-
-            x.WaitForExit();
+            //OpenFileDialog ofd = new OpenFileDialog();
+            //ofd.ShowDialog();
+            //string filename = ofd.FileName;
+            //string fildir = Path.GetDirectoryName(filename);
+            //string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
+            //ProcessStartInfo pz = new ProcessStartInfo
+            //
+            //{
+            //
+            //    FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
+            //
+            //    UseShellExecute = false,
+            //    Arguments = "x \"" + filename + "\" -r -o\"" + fildir + "\\out\"",
+            //
+            //    WindowStyle = ProcessWindowStyle.Normal
+            //
+            //
+            //};
+            //
+            //
+            //
+            //Process x = Process.Start(pz);
+            //
+            //x.WaitForExit();
 
             //MessageBox.Show("Task completed");
 

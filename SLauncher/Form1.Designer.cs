@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.gameD = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.Console1 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -128,6 +130,7 @@
             this.button5.Size = new System.Drawing.Size(144, 45);
             this.button5.TabIndex = 7;
             this.button5.Text = "Download game";
+            this.toolTip1.SetToolTip(this.button5, "Download\'s pso2 files [Warning: WIP. Message the discord if any errors occur]");
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -156,6 +159,7 @@
             this.button6.Size = new System.Drawing.Size(144, 45);
             this.button6.TabIndex = 10;
             this.button6.Text = "Check hash";
+            this.toolTip1.SetToolTip(this.button6, "[Temporarily Disabled] Checks hash");
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -201,6 +205,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label Console1;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
