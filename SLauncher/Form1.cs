@@ -17,11 +17,19 @@ using SevenZipExtractor;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace SLauncher
 {
     public partial class Form1 : Form
     {
+
+
+
+
+
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -49,7 +57,7 @@ namespace SLauncher
             {
                 gameD.Text = Properties.Settings.Default.gamedirectory;
             }
-            
+
         }
 
         public static string GenerateFileContents(string pso2BinDirectory)
@@ -58,7 +66,7 @@ namespace SLauncher
             var hour = DateTime.Now.Hour.ToString(CultureInfo.InvariantCulture);
             var sanitizedDirectoryPath = Properties.Settings.Default.gamedirectory;
 
-            
+
             var directoryPathLength = sanitizedDirectoryPath.Length.ToString(CultureInfo.InvariantCulture);
 
             var combinedSeed = key + hour + directoryPathLength;
@@ -94,7 +102,7 @@ namespace SLauncher
                     FileName = "pso2.exe",
                     Verb = "runas",
                     Arguments = arguments,
-                    
+
                 };
 
                 // Start the process
@@ -118,13 +126,13 @@ namespace SLauncher
         private void button1_Click(object sender, EventArgs e)
         {
 
-           FolderBrowserDialog gdir = new FolderBrowserDialog();
+            FolderBrowserDialog gdir = new FolderBrowserDialog();
             gdir.Description = "select the folder containing the pso2.exe";
             gdir.ShowDialog();
             gameD.Text = gdir.SelectedPath;
             Properties.Settings.Default.gamedirectory = gameD.Text;
             Properties.Settings.Default.Save();
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -156,11 +164,11 @@ namespace SLauncher
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
-            
+
+
             SSettings sSettings = new SSettings();
             sSettings.TopLevel = false;
-           
+
 
 
             this.Controls.Add(sSettings);
@@ -171,7 +179,7 @@ namespace SLauncher
         private void Form1_Load(object sender, EventArgs e)
         {
             gameD.Text = Properties.Settings.Default.gamedirectory;
-            
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -179,12 +187,20 @@ namespace SLauncher
             Environment.Exit(0);
         }
 
+
+
+
+
+
+
+        //Code for downloading game.
         private void button5_Click(object sender, EventArgs e)
         {
 
             FolderBrowserDialog Gamedown = new FolderBrowserDialog();
             Gamedown.Description = "Select the folder you want to download the game";
             Gamedown.ShowDialog();
+            Console1.Show();
 
             string filepath = Gamedown.SelectedPath;
             WebClient webClient = new WebClient();
@@ -194,11 +210,12 @@ namespace SLauncher
             {
                 progressBar1.Visible = true;
                 progressBar1.Value = p.ProgressPercentage;
-                Console1.Text = (Convert.ToString(p.UserState) + "    downloaded "+p.BytesReceived+ " of "+p.TotalBytesToReceive+" bytes. "+p.ProgressPercentage+" % complete...");
+                Console1.Text = (Convert.ToString(p.UserState) + "    downloaded " + p.BytesReceived + " of " + p.TotalBytesToReceive + " bytes. " + p.ProgressPercentage + " % complete...");
                 button4.Enabled = false;
                 button3.Enabled = false;
                 button2.Enabled = false;
                 button5.Enabled = false;
+                button6.Enabled = false;
 
             };
             webClient.DownloadFileCompleted += (s, p) =>
@@ -208,23 +225,43 @@ namespace SLauncher
                 button2.Enabled = true;
                 button5.Enabled = true;
                 button4.Enabled = true;
+                button6.Enabled = true;
                 // any other code to process the file
 
-                using (ArchiveFile archiveFile = new ArchiveFile(filepath+"\\game.7z"))
+                using (ArchiveFile archiveFile = new ArchiveFile(filepath + "\\game.7z"))
                 {
-                    archiveFile.Extract("Output"); // extract all
+                    //below is old code for extracting game files
+                    //archiveFile.Extract("Output"); // extract all
+
+                    string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
+
+                    ProcessStartInfo pz = new ProcessStartInfo
+
+                    {
+
+                        FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
+
+                        Arguments = "x \"" + filepath + "\\game.7z\" -r -o\"" + Gamedown.SelectedPath + "\"",
+
+                        WindowStyle = ProcessWindowStyle.Normal
+
+                    };
+
+                    Process x = Process.Start(pz);
+
+                    x.WaitForExit();
                 }
                 MessageBox.Show("Download Complete!", "Notification");
                 var delres = MessageBox.Show("Do you want to delete zipped download?", "Confirmation", MessageBoxButtons.YesNo);
-                if(delres == DialogResult.Yes)
+                if (delres == DialogResult.Yes)
                 {
                     File.Delete(@filepath + "\\game.7z");
                 }
-                gameD.Text = filepath;
+                gameD.Text = filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin";
             };
 
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
-            if (filepath != ""|| filepath == null)
+            if (filepath != "" || filepath == null)
             {
                 webClient.DownloadFileAsync(new Uri("https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88"), @filepath + "\\game.7z");
             }
@@ -232,17 +269,21 @@ namespace SLauncher
             {
                 MessageBox.Show("Error. No download address specified", "Error");
             }
-            
 
-            
+
+
 
         }
 
+
+
+
+
         public static void DownloadProgressCallback4(object sender, DownloadProgressChangedEventArgs e)
         {
-            
-           
-            
+
+
+
 
             //MessageBox.Show("Downloading " + e.BytesReceived + " of " + e.TotalBytesToReceive + ". " + e.ProgressPercentage)
 
@@ -347,7 +388,7 @@ namespace SLauncher
 
             private static uint[] InitializeTable(uint polynomial)
             {
-                
+
 
                 if (polynomial == DefaultPolynomial && _defaultTable != null)
                 {
@@ -405,14 +446,68 @@ namespace SLauncher
                 };
             }
 
-            
+
+        }
+
+
+
+
+        private async Task GoExtractAsync(ArchiveFile ar, string path)
+        {
+
+            await Task.Run(() => ar.Extract("out"));
+
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Currently Disabled. Still WIP. currently being used as 7zip extraction test");
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            string filename = ofd.FileName;
+            string fildir = Path.GetDirectoryName(filename);
+            string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
+            ProcessStartInfo pz = new ProcessStartInfo
+
+            {
+
+                FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
+
+                UseShellExecute = false,
+                Arguments = "x \"" + filename + "\" -r -o\"" + fildir + "\\out\"",
+
+                WindowStyle = ProcessWindowStyle.Normal
+
+
+            };
+
+
+
+            Process x = Process.Start(pz);
+
+            x.WaitForExit();
+
+            //MessageBox.Show("Task completed");
+
+
+
+
+
+
+            return;
+
             string gamedata = gameD.Text + "\\data\\win32";
             CalculateFolderCrc(gamedata);
             MessageBox.Show("Hash code complete", "Notification");
         }
+
+
+
+
+        bool IsShown = false;
+
+
+
+
     }
 }
