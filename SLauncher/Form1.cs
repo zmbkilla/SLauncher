@@ -257,7 +257,7 @@ namespace SLauncher
                 {
                     File.Delete(@filepath + "\\game.7z");
                 }
-                gameD.Text = filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin";
+                gameD.Text = "\"" +filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin\"";
             };
 
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
