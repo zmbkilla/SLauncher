@@ -53,9 +53,9 @@ namespace SLauncher
                     gwidth = gwidth;
 
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 2] = arrLine[j + 2].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
+                    arrLine[j + 3] = arrLine[j + 2].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
                     File.WriteAllLines(setadd, arrLine);
-                    arrLine[j + 5] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
+                    arrLine[j + 6] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if(comboBox1.Text == gres)
@@ -73,22 +73,22 @@ namespace SLauncher
                 if (comboBox2.SelectedIndex == 0)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = true");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[j + 2] = arrLine[j + 2].Replace("FullScreen = " + pf, "FullScreen = true");
+                    arrLine[j + 4] = arrLine[j + 4].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 1)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
+                    arrLine[j + 2] = arrLine[j + 2].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[j + 4] = arrLine[j + 4].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 2)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[j + 2] = arrLine[j + 2].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[j + 4] = arrLine[j + 4].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else
@@ -110,37 +110,77 @@ namespace SLauncher
         private void Settings_Load(object sender, EventArgs e)
         {
             setadd = Properties.Settings.Default.settingdirectory;
-
-            if (setadd == "" || setadd == null)
-            {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Title = "please select your pso2 settings file (\"user.pso2\")";
-                ofd.ShowDialog();
-                Properties.Settings.Default.settingdirectory = ofd.FileName;
-                setadd = ofd.FileName;
-                Properties.Settings.Default.Save();
-            }
-
-            int i = 0;
-            
-            StreamReader sr = new StreamReader(setadd);
-            setadd = Properties.Settings.Default.settingdirectory;
-            while(i < 999)
+            bool load_fin = false;
+            bool Set_val = true;
+            while (load_fin != true) 
             {
                 
-                if (sr.ReadLine().ToString().Contains("Windows = {"))
+                if (setadd == "" || setadd == null)
                 {
-                    j = i;
-                    break;
+                    Set_val = false;
+
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Title = "please select your pso2 settings file (\"user.pso2\")";
+                    ofd.ShowDialog();
+                    Properties.Settings.Default.settingdirectory = ofd.FileName;
+                    setadd = ofd.FileName;
+                    Properties.Settings.Default.Save();
+                    Set_val = true;
                 }
-                i += 1;
+                string val_check="";
+                int i = 0;
+                if (Set_val == true && setadd != "")
+                {
+
+                    StreamReader sr = new StreamReader(setadd);
+                    setadd = Properties.Settings.Default.settingdirectory;
+                    while (i < 999)
+                    {
+                        if (i == 0)
+                        {
+                            val_check = sr.ReadLine();
+                            if (val_check != "Ini = {")
+                            {
+                                MessageBox.Show("Error: Invalid file. Please check if you have selected the user.pso2 file");
+                                Properties.Settings.Default.settingdirectory = "";
+                                Properties.Settings.Default.Save();
+                                setadd = "";
+                                Set_val = false;
+                                break;
+                            }
+
+                        }
+
+                        if (sr.ReadLine().ToString().Contains("Windows = {"))
+                        {
+                            j = i;
+                            break;
+                        }
+                        i += 1;
+                    }
+
+                    sr.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("No valid file selected. please select the correct file");
+                    
+                }
+                
+
+                if (val_check == "Ini = {")
+                {
+                    load_fin = true;
+                }
+
             }
+            
+           
 
-            sr.Close();
-
-            gheight= File.ReadLines(setadd).Skip(j+2).Take(1).Last();
+            gheight= File.ReadLines(setadd).Skip(j+3).Take(1).Last();
             gheight = Regex.Match(gheight, @"[0-9]+").Value;
-            gwidth = File.ReadLines(setadd).Skip(j + 5).Take(1).Last();
+            gwidth = File.ReadLines(setadd).Skip(j + 6).Take(1).Last();
             gwidth = Regex.Match(gwidth, @"[0-9]+").Value;
             gres = gwidth + " x " + gheight;
             ph = gheight;
@@ -156,8 +196,8 @@ namespace SLauncher
                 resi += 1;
             }
 
-            string Fscreen = File.ReadLines(setadd).Skip(j + 1).Take(1).Last();
-            string vscreen = File.ReadLines(setadd).Skip(j + 3).Take(1).Last();
+            string Fscreen = File.ReadLines(setadd).Skip(j + 2).Take(1).Last();
+            string vscreen = File.ReadLines(setadd).Skip(j + 4).Take(1).Last();
             
 
             if (Fscreen.Contains("true") && vscreen.Contains("false"))
