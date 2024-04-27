@@ -124,9 +124,13 @@ namespace SLauncher
                         OpenFileDialog ofd = new OpenFileDialog();
                         ofd.Title = "please select your pso2 settings file (\"user.pso2\")";
                         ofd.ShowDialog();
-                        Properties.Settings.Default.settingdirectory = ofd.FileName;
-                        setadd = ofd.FileName;
-                        Properties.Settings.Default.Save();
+                        if (ofd.FileName != "")
+                        {
+                            Properties.Settings.Default.settingdirectory = ofd.FileName;
+                            setadd = ofd.FileName;
+                            Properties.Settings.Default.Save();
+                        }
+                        
                     }
                     else if (dr == DialogResult.No)
                     {
