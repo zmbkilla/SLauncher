@@ -16,8 +16,10 @@ namespace SLauncher
 {
     public partial class SSettings : Form
     {
-        public int rheight, rwidth,j;
-        public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres;
+        //j = resolution, bs = basic
+        public int rheight, rwidth,j,bs;
+        public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movply;
+        
 
         private void button2_KeyDown(object sender, KeyEventArgs e)
         {
@@ -53,9 +55,9 @@ namespace SLauncher
                     gwidth = gwidth;
 
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 3] = arrLine[j + 2].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
+                    arrLine[j + 2] = arrLine[j + 2].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
                     File.WriteAllLines(setadd, arrLine);
-                    arrLine[j + 6] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
+                    arrLine[j + 5] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if(comboBox1.Text == gres)
@@ -73,28 +75,32 @@ namespace SLauncher
                 if (comboBox2.SelectedIndex == 0)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 2] = arrLine[j + 2].Replace("FullScreen = " + pf, "FullScreen = true");
-                    arrLine[j + 4] = arrLine[j + 4].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = true");
+                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 1)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 2] = arrLine[j + 2].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 4] = arrLine[j + 4].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
+                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 2)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 2] = arrLine[j + 2].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 4] = arrLine[j + 4].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[j + 1] = arrLine[j + 3].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[j + 1] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else
                 {
                     MessageBox.Show("Error saving Windows style. Please check the user settings file", "Error");
                 }
+
+                //save basic
+
+
 
                 MessageBox.Show("Settings Saved", "Complete");
                 this.Close();
@@ -150,6 +156,7 @@ namespace SLauncher
                     Set_val = true;
                 }
                 string val_check="";
+                string rl;
                 int i = 0;
                 if (Set_val == true && setadd != "")
                 {
@@ -158,9 +165,12 @@ namespace SLauncher
                     setadd = Properties.Settings.Default.settingdirectory;
                     while (i < 999)
                     {
+                        rl = sr.ReadLine();
+                        //checks if valid setting file by reading first line
                         if (i == 0)
                         {
-                            val_check = sr.ReadLine();
+
+                            val_check = rl;
                             if (val_check != "Ini = {")
                             {
                                 MessageBox.Show("Error: Invalid file. Please check if you have selected the user.pso2 file");
@@ -172,12 +182,27 @@ namespace SLauncher
                             }
 
                         }
+                        //check basic settings
+                        if (rl.Trim() == "Basic = {")
+                        {
 
-                        if (sr.ReadLine().ToString().Contains("Windows = {"))
+                            bs = i;
+                            
+                            
+                        }
+
+                        //checks for resolution related settings
+                        if (rl.Trim() == "Windows = {")
                         {
                             j = i;
+                            
+                        }
+                        if (rl.Trim() == "System = {")
+                        {
+                            
                             break;
                         }
+
                         i += 1;
                     }
 
@@ -199,14 +224,21 @@ namespace SLauncher
             }
             
            
-
-            gheight= File.ReadLines(setadd).Skip(j+3).Take(1).Last();
+            movply = File.ReadLines(setadd).Skip(bs + 6).Take(1).Last();
+            movply.Trim();
+            gheight = File.ReadLines(setadd).Skip(j+2).Take(1).Last();
             gheight = Regex.Match(gheight, @"[0-9]+").Value;
-            gwidth = File.ReadLines(setadd).Skip(j + 6).Take(1).Last();
+            gwidth = File.ReadLines(setadd).Skip(j + 5).Take(1).Last();
             gwidth = Regex.Match(gwidth, @"[0-9]+").Value;
             gres = gwidth + " x " + gheight;
             ph = gheight;
             pw = gwidth;
+
+            //code for basic settings checkbox
+            
+
+
+            //code to set combobox value for resolution
             int resi = 0;
             while(resi < 19)
             {
@@ -218,8 +250,8 @@ namespace SLauncher
                 resi += 1;
             }
 
-            string Fscreen = File.ReadLines(setadd).Skip(j + 2).Take(1).Last();
-            string vscreen = File.ReadLines(setadd).Skip(j + 4).Take(1).Last();
+            string Fscreen = File.ReadLines(setadd).Skip(j + 1).Take(1).Last();
+            string vscreen = File.ReadLines(setadd).Skip(j + 3).Take(1).Last();
             
 
             if (Fscreen.Contains("true") && vscreen.Contains("false"))
@@ -243,8 +275,11 @@ namespace SLauncher
             {
                 MessageBox.Show("Error reading windows style", "error");
             }
-            
-            
+
+            if (movply.Contains("true"))
+            {
+                checkBox1.Checked = true;
+            }
 
 
         }
