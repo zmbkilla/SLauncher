@@ -136,8 +136,9 @@ namespace SLauncher
                     {
                         MessageBox.Show("Creating settings file in User's folder");
                         string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
+                        string createdir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SEGA\\PHANTASYSTARONLINE2\\";
                         string createfil = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SEGA\\PHANTASYSTARONLINE2\\user.pso2";
-                        
+                        Directory.CreateDirectory(createdir);
                         File.Copy(string.Format("{0}Resources\\user.pso2", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))), createfil, true);
                         Properties.Settings.Default.settingdirectory = createfil;
                         setadd = createfil;
