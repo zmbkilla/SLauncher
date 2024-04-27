@@ -118,13 +118,30 @@ namespace SLauncher
                 if (setadd == "" || setadd == null)
                 {
                     Set_val = false;
-
-                    OpenFileDialog ofd = new OpenFileDialog();
-                    ofd.Title = "please select your pso2 settings file (\"user.pso2\")";
-                    ofd.ShowDialog();
-                    Properties.Settings.Default.settingdirectory = ofd.FileName;
-                    setadd = ofd.FileName;
-                    Properties.Settings.Default.Save();
+                    DialogResult dr = MessageBox.Show("Would you like to select an existing user.pso2 file?", "Donfirmation", MessageBoxButtons.YesNo);
+                    if (dr == DialogResult.Yes)
+                    {
+                        OpenFileDialog ofd = new OpenFileDialog();
+                        ofd.Title = "please select your pso2 settings file (\"user.pso2\")";
+                        ofd.ShowDialog();
+                        Properties.Settings.Default.settingdirectory = ofd.FileName;
+                        setadd = ofd.FileName;
+                        Properties.Settings.Default.Save();
+                    }
+                    else if (dr == DialogResult.No)
+                    {
+                        MessageBox.Show("Creating settings file in User's folder");
+                        string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
+                        string createfil = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SEGA\\PHANTASYSTARONLINE2\\user.pso2";
+                        
+                        File.Copy(string.Format("{0}Resources\\user.pso2", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))), createfil, true);
+                        Properties.Settings.Default.settingdirectory = createfil;
+                        setadd = createfil;
+                        Properties.Settings.Default.Save();
+                    }
+                    
+                    
+                    
                     Set_val = true;
                 }
                 string val_check="";
