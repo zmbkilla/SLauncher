@@ -89,8 +89,8 @@ namespace SLauncher
                 else if (comboBox2.SelectedIndex == 2)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 3].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 1] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else
