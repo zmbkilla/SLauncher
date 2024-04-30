@@ -27,7 +27,7 @@ namespace SLauncher
     {
 
         public double ver = 0.44;
-        
+        public int defx = 800, defy = 450;
 
 
 
@@ -176,7 +176,7 @@ namespace SLauncher
             sSettings.TopLevel = false;
 
 
-
+            this.AutoSize = true;
             this.Controls.Add(sSettings);
             sSettings.Show();
             this.Controls.SetChildIndex(sSettings, 0);
@@ -185,6 +185,8 @@ namespace SLauncher
         private void Form1_Load(object sender, EventArgs e)
         {
             gameD.Text = Properties.Settings.Default.gamedirectory;
+            this.AutoSize = false;
+            this.Size = new Size(800,450);
 
         }
 
@@ -521,8 +523,6 @@ namespace SLauncher
 
         bool IsShown = false;
 
-
-
-
+        
     }
 }
