@@ -158,7 +158,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(144, 45);
             this.button6.TabIndex = 10;
-            this.button6.Text = "Check hash";
+            this.button6.Text = "Check Update";
             this.toolTip1.SetToolTip(this.button6, "[Temporarily Disabled] Checks hash");
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
@@ -167,6 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = global::SLauncher.Properties.Resources.BG;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -183,6 +184,7 @@
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
             this.Text = "Starlight Launcher";
             this.Load += new System.EventHandler(this.Form1_Load);

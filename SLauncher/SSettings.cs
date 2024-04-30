@@ -18,8 +18,43 @@ namespace SLauncher
     {
         //j = resolution, bs = basic
         public int rheight, rwidth,j,bs;
-        public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movply;
+        public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movbl, vl1,vl2,vl3,vl4;
+
+       
+
         
+
+        private void SSettings_Leave(object sender, EventArgs e)
+        {
+            Form1 fm = new Form1();
+            fm.AutoSize = false;
+            fm.Width = 800;
+            fm.Height = 500;
+        }
+
+        private void trackBar4_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown4.Value = trackBar4.Value;
+        }
+
+        private void trackBar3_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown3.Value = trackBar1.Value;
+        }
+
+        private void trackBar2_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown2.Value = trackBar2.Value;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = trackBar1.Value;
+        }
+
+        public string[] varl = new string[100];
+        public int[] pos = new int[100];
+
 
         private void button2_KeyDown(object sender, KeyEventArgs e)
         {
@@ -39,9 +74,17 @@ namespace SLauncher
         private void button2_Click(object sender, EventArgs e)
         {
             Form1 form1 = new Form1();
+
+            this.AutoSize = false;
+            form1.AutoSize = false;
+            this.Width = 800;
+            this.Height = 500;
+            
+            //form1.Size = new Size(800, 450);
             
             
-            this.Close();
+            
+            this.Dispose();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,13 +94,13 @@ namespace SLauncher
                 //save resolution
                 if (comboBox1.Text != gres)
                 {
-                    gheight = gheight;
-                    gwidth = gwidth;
+                    //gheight = gheight;
+                    //gwidth = gwidth;
 
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 2] = arrLine[j + 2].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
+                    arrLine[pos[99]] = arrLine[pos[99]].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
                     File.WriteAllLines(setadd, arrLine);
-                    arrLine[j + 5] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
+                    arrLine[pos[98]] = arrLine[pos[98]].Replace(pw,comboBox1.Text.Substring(0, 4));
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if(comboBox1.Text == gres)
@@ -75,22 +118,22 @@ namespace SLauncher
                 if (comboBox2.SelectedIndex == 0)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = true");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[pos[97]] = arrLine[pos[97]].Replace("FullScreen = " + pf, "FullScreen = true");
+                    arrLine[pos[96]] = arrLine[pos[96]].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 1)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
+                    arrLine[pos[97]] = arrLine[pos[97]].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[pos[96]] = arrLine[pos[96]].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 2)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[pos[97]] = arrLine[pos[97]].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[pos[96]] = arrLine[pos[96]].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else
@@ -99,6 +142,27 @@ namespace SLauncher
                 }
 
                 //save basic
+
+                if(checkBox1.Checked == true)
+                {
+                    string[] arrLine = File.ReadAllLines(setadd);
+                    arrLine[pos[0]] = arrLine[pos[0]].Replace("MoviePlay = " + movbl, "MoviePlay = true");
+                    File.WriteAllLines(setadd, arrLine);
+                }
+                else
+                {
+                    string[] arrLine = File.ReadAllLines(setadd);
+                    arrLine[pos[0]] = arrLine[pos[0]].Replace("MoviePlay = " + movbl, "MoviePlay = false");
+                    File.WriteAllLines(setadd, arrLine);
+                }
+
+                //save sound
+                string[] sLine = File.ReadAllLines(setadd);
+                sLine[pos[1]] = sLine[pos[1]].Replace("Bgm = " + vl1, "Bgm = " + numericUpDown1.Value.ToString());
+                sLine[pos[2]] = sLine[pos[2]].Replace("Voice = " + vl2, "Voice = " + numericUpDown2.Value.ToString());
+                sLine[pos[3]] = sLine[pos[3]].Replace("Movie = " + vl3, "Movie = " + numericUpDown3.Value.ToString());
+                sLine[pos[4]] = sLine[pos[4]].Replace("Se = " + vl4, "Se = " + numericUpDown4.Value.ToString());
+                File.WriteAllLines(setadd, sLine);
 
 
 
@@ -118,6 +182,8 @@ namespace SLauncher
             setadd = Properties.Settings.Default.settingdirectory;
             bool load_fin = false;
             bool Set_val = true;
+            
+            
             while (load_fin != true) 
             {
                 
@@ -158,6 +224,7 @@ namespace SLauncher
                 string val_check="";
                 string rl;
                 int i = 0;
+                
                 if (Set_val == true && setadd != "")
                 {
 
@@ -183,18 +250,36 @@ namespace SLauncher
 
                         }
                         //check basic settings
-                        if (rl.Trim() == "Basic = {")
+                        if (rl.Trim() == "MoviePlay = true,")
                         {
 
-                            bs = i;
+                            pos[0] = i;
                             
                             
                         }
 
+                        //check for sound settings
+                        if ( rl.Trim() == "Sound = {")
+                        {
+                            pos[1] = i+6;
+                            pos[2] = i + 7;
+                            pos[3] = i+8;
+                            pos[4] = i+ 9;
+                        }
+
+
                         //checks for resolution related settings
                         if (rl.Trim() == "Windows = {")
                         {
-                            j = i;
+                            //height
+                            pos[99] = i+2;
+                            
+                            //width
+                            pos[98] = i+5;
+                            //fscreen
+                            pos[97] = i + 1;
+                            //vscreen
+                            pos[96] = i + 3;
                             
                         }
                         if (rl.Trim() == "System = {")
@@ -222,22 +307,49 @@ namespace SLauncher
                 }
 
             }
-            
-           
-            movply = File.ReadLines(setadd).Skip(bs + 6).Take(1).Last();
-            movply.Trim();
-            gheight = File.ReadLines(setadd).Skip(j+2).Take(1).Last();
-            gheight = Regex.Match(gheight, @"[0-9]+").Value;
-            gwidth = File.ReadLines(setadd).Skip(j + 5).Take(1).Last();
-            gwidth = Regex.Match(gwidth, @"[0-9]+").Value;
-            gres = gwidth + " x " + gheight;
-            ph = gheight;
-            pw = gwidth;
+            varl[0] = File.ReadLines(setadd).Skip(pos[0]).Take(1).Last();
+            varl[0].Trim();
+            varl[99] = File.ReadLines(setadd).Skip(pos[99]).Take(1).Last();
+            varl[99] = Regex.Match(varl[99], @"[0-9]+").Value;
+            varl[98] = File.ReadLines(setadd).Skip(pos[98]).Take(1).Last();
+            varl[98] = Regex.Match(varl[98], @"[0-9]+").Value;
+            gres = varl[98] + " x " + varl[99];
+            ph = varl[99];
+            pw = varl[98];
 
             //code for basic settings checkbox
-            
 
+            if (varl[0].Contains("true"))
+            {
+                checkBox1.Checked = true;
+                movbl = "true";
+            }
+            else
+            {
+                movbl = "false";
+            }
+            //code for sound
+            varl[1] = File.ReadLines(setadd).Skip(pos[1]).Take(1).Last();
+            varl[1] = Regex.Match(varl[1], @"[0-9]+").Value;
+            varl[2] = File.ReadLines(setadd).Skip(pos[2]).Take(1).Last();
+            varl[2] = Regex.Match(varl[2], @"[0-9]+").Value;
+            varl[3] = File.ReadLines(setadd).Skip(pos[3]).Take(1).Last();
+            varl[3] = Regex.Match(varl[3], @"[0-9]+").Value;
+            varl[4] = File.ReadLines(setadd).Skip(pos[4]).Take(1).Last();
+            varl[4] = Regex.Match(varl[4], @"[0-9]+").Value;
 
+            trackBar1.Value = Convert.ToInt16(varl[1]);
+            numericUpDown1.Value = trackBar1.Value;
+            vl1 = numericUpDown1.Value.ToString();
+            trackBar2.Value = Convert.ToInt16(varl[2]);
+            numericUpDown2.Value = trackBar2.Value;
+            vl2 = numericUpDown2.Value.ToString();
+            trackBar3.Value = Convert.ToInt16(varl[3]);
+            numericUpDown3.Value = trackBar3.Value;
+            vl3 = numericUpDown3.Value.ToString();
+            trackBar4.Value = Convert.ToInt16(varl[4]);
+            numericUpDown4.Value = trackBar4.Value;
+            vl4 = numericUpDown4.Value.ToString();
             //code to set combobox value for resolution
             int resi = 0;
             while(resi < 19)
@@ -250,8 +362,8 @@ namespace SLauncher
                 resi += 1;
             }
 
-            string Fscreen = File.ReadLines(setadd).Skip(j + 1).Take(1).Last();
-            string vscreen = File.ReadLines(setadd).Skip(j + 3).Take(1).Last();
+            string Fscreen = File.ReadLines(setadd).Skip(pos[97]).Take(1).Last();
+            string vscreen = File.ReadLines(setadd).Skip(pos[96]).Take(1).Last();
             
 
             if (Fscreen.Contains("true") && vscreen.Contains("false"))
@@ -276,12 +388,10 @@ namespace SLauncher
                 MessageBox.Show("Error reading windows style", "error");
             }
 
-            if (movply.Contains("true"))
-            {
-                checkBox1.Checked = true;
-            }
+            
 
-
+            //set basic variables
+            
         }
 
     }
