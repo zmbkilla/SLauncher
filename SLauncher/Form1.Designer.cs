@@ -158,7 +158,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(144, 45);
             this.button6.TabIndex = 10;
-            this.button6.Text = "Check hash";
+            this.button6.Text = "Check Update";
             this.toolTip1.SetToolTip(this.button6, "[Temporarily Disabled] Checks hash");
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);

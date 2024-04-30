@@ -13,7 +13,6 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using SevenZipExtractor;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
@@ -23,10 +22,12 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace SLauncher
 {
+    
     public partial class Form1 : Form
     {
 
-
+        public double ver = 0.44;
+        
 
 
 
@@ -56,7 +57,12 @@ namespace SLauncher
             if (gameD.Text == "")
             {
                 gameD.Text = Properties.Settings.Default.gamedirectory;
+                
             }
+
+            //File.Create("version.txt");
+            File.WriteAllText("version.txt",ver.ToString());
+            
 
         }
 
@@ -228,8 +234,7 @@ namespace SLauncher
                 button6.Enabled = true;
                 // any other code to process the file
 
-                using (ArchiveFile archiveFile = new ArchiveFile(filepath + "\\game.7z"))
-                {
+               
                     //below is old code for extracting game files
                     //archiveFile.Extract("Output"); // extract all
 
@@ -250,7 +255,7 @@ namespace SLauncher
                     Process x = Process.Start(pz);
 
                     x.WaitForExit();
-                }
+                
                 MessageBox.Show("Download Complete!", "Notification");
                 var delres = MessageBox.Show("Do you want to delete zipped download?", "Confirmation", MessageBoxButtons.YesNo);
                 if (delres == DialogResult.Yes)
@@ -453,16 +458,25 @@ namespace SLauncher
 
 
 
-        private async Task GoExtractAsync(ArchiveFile ar, string path)
-        {
-
-            await Task.Run(() => ar.Extract("out"));
-
-        }
+        //private async Task GoExtractAsync(ArchiveFile ar, string path)
+        //{
+        //
+        //    await Task.Run(() => ar.Extract("out"));
+        //
+        //}
 
         private void button6_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Currently Disabled. Still WIP. currently being used as 7zip extraction test");
+            //MessageBox.Show("Currently Disabled. Still WIP. currently being used as 7zip extraction test");
+            DialogResult dr = MessageBox.Show("Would you like to check updates?","Confirmation",MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                
+            }
+
+            
+
+
             //OpenFileDialog ofd = new OpenFileDialog();
             //ofd.ShowDialog();
             //string filename = ofd.FileName;
