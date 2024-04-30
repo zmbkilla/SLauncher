@@ -158,10 +158,10 @@ namespace SLauncher
 
                 //save sound
                 string[] sLine = File.ReadAllLines(setadd);
-                sLine[pos[1]] = sLine[pos[1]].Replace("Bgm = " + vl1, "Bgm = " + numericUpDown1.Value);
-                sLine[pos[2]] = sLine[pos[2]].Replace("Voice = " + vl2, "Voice = " + numericUpDown1.Value);
-                sLine[pos[3]] = sLine[pos[3]].Replace("Movie = " + vl3, "Movie = " + numericUpDown1.Value);
-                sLine[pos[4]] = sLine[pos[4]].Replace("Se = " + vl4, "Se = " + numericUpDown1.Value);
+                sLine[pos[1]] = sLine[pos[1]].Replace("Bgm = " + vl1, "Bgm = " + numericUpDown1.Value.ToString());
+                sLine[pos[2]] = sLine[pos[2]].Replace("Voice = " + vl2, "Voice = " + numericUpDown2.Value.ToString());
+                sLine[pos[3]] = sLine[pos[3]].Replace("Movie = " + vl3, "Movie = " + numericUpDown3.Value.ToString());
+                sLine[pos[4]] = sLine[pos[4]].Replace("Se = " + vl4, "Se = " + numericUpDown4.Value.ToString());
                 File.WriteAllLines(setadd, sLine);
 
 
@@ -340,16 +340,16 @@ namespace SLauncher
 
             trackBar1.Value = Convert.ToInt16(varl[1]);
             numericUpDown1.Value = trackBar1.Value;
-            vl1 = numericUpDown1.ToString();
+            vl1 = numericUpDown1.Value.ToString();
             trackBar2.Value = Convert.ToInt16(varl[2]);
             numericUpDown2.Value = trackBar2.Value;
-            vl2 = numericUpDown2.ToString();
+            vl2 = numericUpDown2.Value.ToString();
             trackBar3.Value = Convert.ToInt16(varl[3]);
             numericUpDown3.Value = trackBar3.Value;
-            vl3 = numericUpDown3.ToString();
+            vl3 = numericUpDown3.Value.ToString();
             trackBar4.Value = Convert.ToInt16(varl[4]);
             numericUpDown4.Value = trackBar4.Value;
-            vl4 = numericUpDown4.ToString();
+            vl4 = numericUpDown4.Value.ToString();
             //code to set combobox value for resolution
             int resi = 0;
             while(resi < 19)
