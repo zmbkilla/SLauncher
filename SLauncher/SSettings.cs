@@ -19,7 +19,8 @@ namespace SLauncher
         //j = resolution, bs = basic
         public int rheight, rwidth,j,bs;
         public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movply;
-        
+        public int[] pos = new int[100];
+
 
         private void button2_KeyDown(object sender, KeyEventArgs e)
         {
@@ -55,9 +56,9 @@ namespace SLauncher
                     gwidth = gwidth;
 
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 2] = arrLine[j + 2].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
+                    arrLine[pos[99]] = arrLine[pos[99]].Replace(ph,comboBox1.Text.Substring(comboBox1.Text.Length - 4, 4));
                     File.WriteAllLines(setadd, arrLine);
-                    arrLine[j + 5] = arrLine[j + 5].Replace(pw,comboBox1.Text.Substring(0, 4));
+                    arrLine[pos[98]] = arrLine[pos[98]].Replace(pw,comboBox1.Text.Substring(0, 4));
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if(comboBox1.Text == gres)
@@ -75,22 +76,22 @@ namespace SLauncher
                 if (comboBox2.SelectedIndex == 0)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = true");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[pos[97]] = arrLine[pos[97]].Replace("FullScreen = " + pf, "FullScreen = true");
+                    arrLine[pos[96]] = arrLine[pos[96]].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 1)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
+                    arrLine[pos[97]] = arrLine[pos[97]].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[pos[96]] = arrLine[pos[96]].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = true");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else if (comboBox2.SelectedIndex == 2)
                 {
                     string[] arrLine = File.ReadAllLines(setadd);
-                    arrLine[j + 1] = arrLine[j + 1].Replace("FullScreen = " + pf, "FullScreen = false");
-                    arrLine[j + 3] = arrLine[j + 3].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
+                    arrLine[pos[97]] = arrLine[pos[97]].Replace("FullScreen = " + pf, "FullScreen = false");
+                    arrLine[pos[96]] = arrLine[pos[96]].Replace("VirtualFullScreen = " + pvf, "VirtualFullScreen = false");
                     File.WriteAllLines(setadd, arrLine);
                 }
                 else
@@ -118,6 +119,8 @@ namespace SLauncher
             setadd = Properties.Settings.Default.settingdirectory;
             bool load_fin = false;
             bool Set_val = true;
+            
+            
             while (load_fin != true) 
             {
                 
@@ -158,6 +161,7 @@ namespace SLauncher
                 string val_check="";
                 string rl;
                 int i = 0;
+                
                 if (Set_val == true && setadd != "")
                 {
 
@@ -183,10 +187,10 @@ namespace SLauncher
 
                         }
                         //check basic settings
-                        if (rl.Trim() == "Basic = {")
+                        if (rl.Trim() == "MoviePlay = true,")
                         {
 
-                            bs = i;
+                            pos[0] = i;
                             
                             
                         }
@@ -194,7 +198,15 @@ namespace SLauncher
                         //checks for resolution related settings
                         if (rl.Trim() == "Windows = {")
                         {
-                            j = i;
+                            //height
+                            pos[99] = i+2;
+                            
+                            //width
+                            pos[98] = i+5;
+                            //fscreen
+                            pos[97] = i + 1;
+                            //vscreen
+                            pos[96] = i + 3;
                             
                         }
                         if (rl.Trim() == "System = {")
@@ -224,11 +236,11 @@ namespace SLauncher
             }
             
            
-            movply = File.ReadLines(setadd).Skip(bs + 6).Take(1).Last();
+            movply = File.ReadLines(setadd).Skip(pos[0]).Take(1).Last();
             movply.Trim();
-            gheight = File.ReadLines(setadd).Skip(j+2).Take(1).Last();
+            gheight = File.ReadLines(setadd).Skip(pos[99]).Take(1).Last();
             gheight = Regex.Match(gheight, @"[0-9]+").Value;
-            gwidth = File.ReadLines(setadd).Skip(j + 5).Take(1).Last();
+            gwidth = File.ReadLines(setadd).Skip(pos[98]).Take(1).Last();
             gwidth = Regex.Match(gwidth, @"[0-9]+").Value;
             gres = gwidth + " x " + gheight;
             ph = gheight;
@@ -250,8 +262,8 @@ namespace SLauncher
                 resi += 1;
             }
 
-            string Fscreen = File.ReadLines(setadd).Skip(j + 1).Take(1).Last();
-            string vscreen = File.ReadLines(setadd).Skip(j + 3).Take(1).Last();
+            string Fscreen = File.ReadLines(setadd).Skip(pos[97]).Take(1).Last();
+            string vscreen = File.ReadLines(setadd).Skip(pos[96]).Take(1).Last();
             
 
             if (Fscreen.Contains("true") && vscreen.Contains("false"))
