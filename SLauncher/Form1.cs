@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Contexts;
 
 namespace SLauncher
 {
@@ -211,8 +212,48 @@ namespace SLauncher
             Console1.Show();
 
             string filepath = Gamedown.SelectedPath;
+
+
             WebClient webClient = new WebClient();
 
+            if (File.Exists("" + filepath + "\\game.7z"))
+            {
+                DialogResult dr = new DialogResult();
+                dr = MessageBox.Show("Gamedata already exist. Would you like to extract it instead?", "Notification", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
+                {
+                    string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
+
+                    ProcessStartInfo pz = new ProcessStartInfo
+
+                    {
+
+                        FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
+
+                        Arguments = "x \"" + filepath + "\\game.7z\" -r -o\"" + Gamedown.SelectedPath + "\"",
+
+                        WindowStyle = ProcessWindowStyle.Normal
+
+                    };
+
+                    Process x = Process.Start(pz);
+
+                    x.WaitForExit();
+                    try
+                    {
+                        
+                        webClient.DownloadFile(new Uri("https://github.com/zmbkilla/SLauncher/releases/download/resources/stats"), "" + filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin\\data\\win32\\595f683e58a4986214efde6922f5430f");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error getting additional files. Please contact devteam");
+                    }
+                    
+                    MessageBox.Show("Extract Complete");
+                    return;
+                }
+
+            }
 
             webClient.DownloadProgressChanged += (s, p) =>
             {
@@ -263,9 +304,30 @@ namespace SLauncher
                 if (delres == DialogResult.Yes)
                 {
                     File.Delete(@filepath + "\\game.7z");
+                    try
+                    {
+                        webClient.DownloadFile(new Uri("https://github.com/zmbkilla/SLauncher/releases/download/resources/stats"), "" + filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin\\data\\win32\\595f683e58a4986214efde6922f5430f");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error getting Additional required files. Use the download button to restart additional file download");
+                    }
+                    
+                }
+                else if (delres == DialogResult.No)
+                {
+                    try
+                    {
+                        webClient.DownloadFile(new Uri("https://github.com/zmbkilla/SLauncher/releases/download/resources/stats"), "" + filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin\\data\\win32\\595f683e58a4986214efde6922f5430f");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error getting Additional required files. Use the download button to restart additional file download");
+                    }
                 }
                 gameD.Text = "\"" +filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin\"";
-                webClient.DownloadFileAsync(new Uri("https://cdn.discordapp.com/attachments/1181777274744352808/1182607074446802975/595f683e58a4986214efde6922f5430f?ex=66354fea&is=6633fe6a&hm=a95eeff13e5804be1ff3d899e41309a88cfc1a63172e0bd4c4fa23ef5382280e&"), "\""+gameD.Text+"\\data\\win32\"");
+                //webClient.DownloadFileAsync(new Uri("https://cdn.discordapp.com/attachments/1181777274744352808/1182607074446802975/595f683e58a4986214efde6922f5430f?ex=66354fea&is=6633fe6a&hm=a95eeff13e5804be1ff3d899e41309a88cfc1a63172e0bd4c4fa23ef5382280e&"), "\""+gameD.Text+"\\data\\win32\"");
+                
             };
 
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
