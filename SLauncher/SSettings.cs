@@ -20,9 +20,32 @@ namespace SLauncher
         public int rheight, rwidth,j,bs;
         public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movbl, vl1,vl2,vl3,vl4;
 
-       
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            FolderBrowserDialog gdir = new FolderBrowserDialog();
+            gdir.Description = "select the folder containing the pso2.exe";
+            gdir.ShowDialog();
+            //gameD.Text = gdir.SelectedPath;
+            //Properties.Settings.Default.gamedirectory = gameD.Text;
+            Properties.Settings.Default.Save();
+        }
 
-        
+        private void settingbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (settingbox.SelectedIndex == 0)
+            {
+                panel2.SendToBack();
+                panel2.Enabled = false;
+                panel1.Enabled = true;
+                
+            }
+            else if (settingbox.SelectedIndex == 1)
+            {
+                panel1.SendToBack();
+                panel1.Enabled = false;
+                panel2.Enabled = true;
+            }
+        }
 
         private void SSettings_Leave(object sender, EventArgs e)
         {
@@ -211,7 +234,8 @@ namespace SLauncher
                         string createdir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SEGA\\PHANTASYSTARONLINE2\\";
                         string createfil = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SEGA\\PHANTASYSTARONLINE2\\user.pso2";
                         Directory.CreateDirectory(createdir);
-                        File.Copy(string.Format("{0}Resources\\user.pso2", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))), createfil, true);
+                        //File.Copy(string.Format("{0}Resources\\user.pso2", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))), createfil, true);
+                        File.Copy(runningpath+"\\Resources\\default",createfil,true);
                         Properties.Settings.Default.settingdirectory = createfil;
                         setadd = createfil;
                         Properties.Settings.Default.Save();
@@ -390,7 +414,11 @@ namespace SLauncher
 
             
 
-            //set basic variables
+            //load initial setting panel
+            panel2.SendToBack();
+            panel2.Enabled = false;
+            gameD.Text = Properties.Settings.Default.gamedirectory;
+            settingbox.SelectedIndex = 0;
             
         }
 

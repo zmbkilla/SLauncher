@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Contexts;
 
 namespace SLauncher
 {
@@ -27,7 +28,7 @@ namespace SLauncher
     {
 
         public double ver = 0.44;
-        public int defx = 800, defy = 450;
+        public int defx = 500, defy = 450;
 
 
 
@@ -54,9 +55,47 @@ namespace SLauncher
         public Form1()
         {
             InitializeComponent();
-            if (gameD.Text == "")
+
+            //sets 
+            if (Properties.Settings.Default.gamedirectory == "")
             {
-                gameD.Text = Properties.Settings.Default.gamedirectory;
+                DialogResult dial = MessageBox.Show("This seems to be the first time you are running the launcher. Do you have an existing install of Starlight?","Notification",MessageBoxButtons.YesNo);
+                if(dial == DialogResult.Yes)
+                {
+                    FolderBrowserDialog dialog = new FolderBrowserDialog();
+                    MessageBox.Show("Please select you \"pso2_bin\" folder");
+                    dialog.Description = "Select your pso2_bin folder";
+                    bool check = false;
+                    while(check != true)
+                    {
+                        dialog.ShowDialog();
+                        if (dialog.SelectedPath != "" && File.Exists(dialog.SelectedPath + "\\pso2.exe"))
+                        {
+                            
+                            Properties.Settings.Default.gamedirectory = dialog.SelectedPath;
+                            Properties.Settings.Default.Save();
+                            check = true;
+                            return;
+                        }
+                        MessageBox.Show("Error cannot find pso2.exe in selected folder. Please try again.");
+                    }
+                    
+                }
+                else if (dial == DialogResult.No)
+                {
+                    DialogResult downres = MessageBox.Show("Would you like to download the game files?", "Confirmation", MessageBoxButtons.YesNo);
+                    if(downres == DialogResult.Yes)
+                    {
+                        Download dl = new Download();
+                        dl.ShowDialog();
+                    }
+                    else if(downres == DialogResult.No)
+                    {
+                        MessageBox.Show("Launcher cannot run without game data. You can download the game using the download button");
+                    }
+                    
+                }
+
                 
             }
 
@@ -129,64 +168,20 @@ namespace SLauncher
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+       
 
-            FolderBrowserDialog gdir = new FolderBrowserDialog();
-            gdir.Description = "select the folder containing the pso2.exe";
-            gdir.ShowDialog();
-            gameD.Text = gdir.SelectedPath;
-            Properties.Settings.Default.gamedirectory = gameD.Text;
-            Properties.Settings.Default.Save();
+        
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-            string strExeFilePath = gameD.Text;
-            string strWorkPath = gameD.Text;
-            var magic = GenerateFileContents(strWorkPath);
-            WriteStringToFile(magic, strWorkPath + "//tweaker.bin");
-            LaunchExecutable(strWorkPath + "//pso2.exe", "-pson2 -pson2");
-            int dbg = 1;
-
-            //if (File.Exists(gameD.Text + "\\pso2.exe"))
-            //    {
-            //    Process startP = new Process();
-            //    //startP.StartInfo.Verb = "runas";
-            //    startP.StartInfo.WorkingDirectory = gameD.Text;
-            //    startP.StartInfo.FileName = "pso2.exe";
-            //    startP.StartInfo.Arguments = "-pson2 -pson2";
-            //
-            //    startP.Start();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("The directory does not contain the pso2 executable","Error");
-            //}
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-
-            SSettings sSettings = new SSettings();
-            sSettings.TopLevel = false;
-
-
-            this.AutoSize = true;
-            this.Controls.Add(sSettings);
-            sSettings.Show();
-            this.Controls.SetChildIndex(sSettings, 0);
-        }
+       
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            gameD.Text = Properties.Settings.Default.gamedirectory;
-            this.AutoSize = false;
-            this.Size = new Size(800,450);
+            // gameD.Text = Properties.Settings.Default.gamedirectory;
+            //this.AutoSize = false;
+            //this.Size = new Size(500,450)
+
+            webBrowser1.Url = new Uri("https://zmbkilla.github.io/SLWeb/generic.html");
+            webBrowser1.ScriptErrorsSuppressed = true;
 
         }
 
@@ -197,112 +192,7 @@ namespace SLauncher
 
 
 
-
-
-
-
-        //Code for downloading game.
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-            FolderBrowserDialog Gamedown = new FolderBrowserDialog();
-            Gamedown.Description = "Select the folder you want to download the game";
-            Gamedown.ShowDialog();
-            Console1.Show();
-
-            string filepath = Gamedown.SelectedPath;
-            WebClient webClient = new WebClient();
-
-
-            webClient.DownloadProgressChanged += (s, p) =>
-            {
-                progressBar1.Visible = true;
-                progressBar1.Value = p.ProgressPercentage;
-                Console1.Text = (Convert.ToString(p.UserState) + "    downloaded " + p.BytesReceived + " of " + p.TotalBytesToReceive + " bytes. " + p.ProgressPercentage + " % complete...");
-                button4.Enabled = false;
-                button3.Enabled = false;
-                button2.Enabled = false;
-                button5.Enabled = false;
-                button6.Enabled = false;
-
-            };
-            webClient.DownloadFileCompleted += (s, p) =>
-            {
-                progressBar1.Visible = false;
-                button3.Enabled = true;
-                button2.Enabled = true;
-                button5.Enabled = true;
-                button4.Enabled = true;
-                button6.Enabled = true;
-                // any other code to process the file
-
-               
-                    //below is old code for extracting game files
-                    //archiveFile.Extract("Output"); // extract all
-
-                    string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
-
-                    ProcessStartInfo pz = new ProcessStartInfo
-
-                    {
-
-                        FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
-
-                        Arguments = "x \"" + filepath + "\\game.7z\" -r -o\"" + Gamedown.SelectedPath + "\"",
-
-                        WindowStyle = ProcessWindowStyle.Normal
-
-                    };
-
-                    Process x = Process.Start(pz);
-
-                    x.WaitForExit();
-                
-                MessageBox.Show("Download Complete!", "Notification");
-                var delres = MessageBox.Show("Do you want to delete zipped download?", "Confirmation", MessageBoxButtons.YesNo);
-                if (delres == DialogResult.Yes)
-                {
-                    File.Delete(@filepath + "\\game.7z");
-                }
-                gameD.Text = "\"" +filepath + "\\PHANTASYSTARONLINE2_JP_5thFeb-2021~\\PHANTASYSTARONLINE2\\pso2_bin\"";
-                webClient.DownloadFileAsync(new Uri("https://cdn.discordapp.com/attachments/1181777274744352808/1182607074446802975/595f683e58a4986214efde6922f5430f?ex=66354fea&is=6633fe6a&hm=a95eeff13e5804be1ff3d899e41309a88cfc1a63172e0bd4c4fa23ef5382280e&"), "\""+gameD.Text+"\\data\\win32\"");
-            };
-
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
-            if (filepath != "" || filepath == null)
-            {
-                //old link https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88
-                webClient.DownloadFileAsync(new Uri("http://66.23.193.37/download/game.7z"), @filepath + "\\game.7z");
-            }
-            else
-            {
-                MessageBox.Show("Error. No download address specified", "Error");
-            }
-
-
-
-
-        }
-
-
-
-
-
-        public static void DownloadProgressCallback4(object sender, DownloadProgressChangedEventArgs e)
-        {
-
-
-
-
-            //MessageBox.Show("Downloading " + e.BytesReceived + " of " + e.TotalBytesToReceive + ". " + e.ProgressPercentage)
-
-            // Displays the operation identifier, and the transfer progress.
-            Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...",
-                (string)e.UserState,
-                e.BytesReceived,
-                e.TotalBytesToReceive,
-               e.ProgressPercentage);
-        }
+       
 
 
         //crc code
@@ -461,12 +351,7 @@ namespace SLauncher
 
 
 
-        //private async Task GoExtractAsync(ArchiveFile ar, string path)
-        //{
-        //
-        //    await Task.Run(() => ar.Extract("out"));
-        //
-        //}
+       
 
         private void button6_Click(object sender, EventArgs e)
         {
@@ -480,32 +365,7 @@ namespace SLauncher
             
 
 
-            //OpenFileDialog ofd = new OpenFileDialog();
-            //ofd.ShowDialog();
-            //string filename = ofd.FileName;
-            //string fildir = Path.GetDirectoryName(filename);
-            //string runningpath = System.AppDomain.CurrentDomain.BaseDirectory;
-            //ProcessStartInfo pz = new ProcessStartInfo
-            //
-            //{
-            //
-            //    FileName = string.Format("{0}Resources\\7zg.exe", Path.GetFullPath(Path.Combine(runningpath, @"..\..\"))),
-            //
-            //    UseShellExecute = false,
-            //    Arguments = "x \"" + filename + "\" -r -o\"" + fildir + "\\out\"",
-            //
-            //    WindowStyle = ProcessWindowStyle.Normal
-            //
-            //
-            //};
-            //
-            //
-            //
-            //Process x = Process.Start(pz);
-            //
-            //x.WaitForExit();
-
-            //MessageBox.Show("Task completed");
+            
 
 
 
@@ -514,13 +374,86 @@ namespace SLauncher
 
             return;
 
-            string gamedata = gameD.Text + "\\data\\win32";
-            CalculateFolderCrc(gamedata);
+            //string gamedata = gameD.Text + "\\data\\win32";
+            //CalculateFolderCrc(gamedata);
             MessageBox.Show("Hash code complete", "Notification");
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            string strExeFilePath = Properties.Settings.Default.gamedirectory;
+            string strWorkPath = Properties.Settings.Default.gamedirectory;
+            var magic = GenerateFileContents(strWorkPath);
+            WriteStringToFile(magic, strWorkPath + "//tweaker.bin");
+            LaunchExecutable(strWorkPath + "//pso2.exe", "-pson2 -pson2");
+            int dbg = 1;
+        }
+
+      
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Resources.Play;
+        }
+
+        private void highlight_VisibleChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Logo_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            SSettings sSettings = new SSettings();
+            sSettings.TopLevel = false;
 
 
+            this.AutoSize = true;
+            this.Controls.Add(sSettings);
+            sSettings.Show();
+            this.Controls.SetChildIndex(sSettings, 0);
+        }
+
+        //Code for downloading game.
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Download dl = new Download();
+            dl.ShowDialog();
+            
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Resources.Play_click;
+        }
+
+        private void pictureBox3_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox3.Image = Resources.Download_click;
+        }
+
+        private void pictureBox3_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox3.Image = Resources.download;
+        }
+
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Resources.Settings_click;
+        }
+
+        private void pictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Resources.settings;
+        }
 
         bool IsShown = false;
 
