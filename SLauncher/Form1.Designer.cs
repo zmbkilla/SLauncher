@@ -37,17 +37,19 @@
             this.Logo = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.SuspendLayout();
             // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.Red;
-            this.button4.Location = new System.Drawing.Point(126, 339);
+            this.button4.Location = new System.Drawing.Point(839, 12);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(30, 30);
             this.button4.TabIndex = 5;
@@ -73,7 +75,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Image = global::SLauncher.Properties.Resources.Play;
+            this.pictureBox1.Image = global::SLauncher.Properties.Resources.play_btn;
             this.pictureBox1.Location = new System.Drawing.Point(79, 193);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(123, 35);
@@ -81,6 +83,7 @@
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
             // 
@@ -126,13 +129,29 @@
             this.pictureBox3.MouseEnter += new System.EventHandler(this.pictureBox3_MouseEnter);
             this.pictureBox3.MouseLeave += new System.EventHandler(this.pictureBox3_MouseLeave);
             // 
-            // webBrowser1
+            // webView21
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(316, 166);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(526, 250);
-            this.webBrowser1.TabIndex = 15;
+            this.webView21.AllowExternalDrop = true;
+            this.webView21.CreationProperties = null;
+            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView21.Location = new System.Drawing.Point(287, 85);
+            this.webView21.Name = "webView21";
+            this.webView21.Size = new System.Drawing.Size(582, 332);
+            this.webView21.Source = new System.Uri("https://zmbkilla.github.io/SLWeb/update", System.UriKind.Absolute);
+            this.webView21.TabIndex = 16;
+            this.webView21.ZoomFactor = 1D;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel1.Location = new System.Drawing.Point(284, 58);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(54, 13);
+            this.linkLabel1.TabIndex = 17;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Reset List";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // Form1
             // 
@@ -142,7 +161,8 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = global::SLauncher.Properties.Resources.BG;
             this.ClientSize = new System.Drawing.Size(881, 450);
-            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.webView21);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.Logo);
@@ -160,7 +180,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,7 +194,8 @@
         private System.Windows.Forms.PictureBox Logo;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.WebBrowser webBrowser1;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

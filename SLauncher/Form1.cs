@@ -54,6 +54,7 @@ namespace SLauncher
 
         public Form1()
         {
+            Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--autoplay-policy=no-user-gesture-required");
             InitializeComponent();
 
             //sets 
@@ -159,7 +160,7 @@ namespace SLauncher
                     // string output = process.StandardOutput.ReadToEnd();
                     // Console.WriteLine(output);
 
-                    process.WaitForExit();
+                    //process.WaitForExit();
                 }
             }
             catch (Exception ex)
@@ -179,9 +180,8 @@ namespace SLauncher
             // gameD.Text = Properties.Settings.Default.gamedirectory;
             //this.AutoSize = false;
             //this.Size = new Size(500,450)
+            
 
-            webBrowser1.Url = new Uri("https://zmbkilla.github.io/SLWeb/generic.html");
-            webBrowser1.ScriptErrorsSuppressed = true;
 
         }
 
@@ -393,7 +393,7 @@ namespace SLauncher
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            pictureBox1.Image = Resources.Play;
+            pictureBox1.Image = Resources.play_btn;
         }
 
         private void highlight_VisibleChanged(object sender, EventArgs e)
@@ -432,7 +432,7 @@ namespace SLauncher
 
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox1.Image = Resources.Play_click;
+            pictureBox1.Image = Resources.play_btn_mo;
         }
 
         private void pictureBox3_MouseEnter(object sender, EventArgs e)
@@ -453,6 +453,16 @@ namespace SLauncher
         private void pictureBox2_MouseLeave(object sender, EventArgs e)
         {
             pictureBox2.Image = Resources.settings;
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox1.Image = Resources.play_btn_dn;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            webView21.Source = new Uri("https://zmbkilla.github.io/SLWeb/update");
         }
 
         bool IsShown = false;
