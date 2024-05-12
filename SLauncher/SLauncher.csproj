@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CRC.cs" />
     <Compile Include="Download.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +115,7 @@
     <Compile Include="SSettings.Designer.cs">
       <DependentUpon>SSettings.cs</DependentUpon>
     </Compile>
+    <None Include="Resources\images.jpg" />
     <EmbeddedResource Include="Download.resx">
       <DependentUpon>Download.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,9 +145,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\default">
+    <Content Include="Resources\default">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="SLauncher_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

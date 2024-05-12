@@ -59,16 +59,14 @@
             // 
             // button6
             // 
-            this.button6.Enabled = false;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button6.Location = new System.Drawing.Point(12, 393);
+            this.button6.Location = new System.Drawing.Point(79, 357);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(144, 45);
             this.button6.TabIndex = 10;
             this.button6.Text = "Check Update";
             this.toolTip1.SetToolTip(this.button6, "[Temporarily Disabled] Checks hash");
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Visible = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // pictureBox1
@@ -104,7 +102,7 @@
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(79, 298);
+            this.pictureBox2.Location = new System.Drawing.Point(79, 302);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(123, 35);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -160,6 +158,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = global::SLauncher.Properties.Resources.BG;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(881, 450);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.webView21);

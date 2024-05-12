@@ -25,8 +25,8 @@ namespace SLauncher
             FolderBrowserDialog gdir = new FolderBrowserDialog();
             gdir.Description = "select the folder containing the pso2.exe";
             gdir.ShowDialog();
-            //gameD.Text = gdir.SelectedPath;
-            //Properties.Settings.Default.gamedirectory = gameD.Text;
+            gameD.Text = gdir.SelectedPath;
+            Properties.Settings.Default.gamedirectory = gdir.SelectedPath;
             Properties.Settings.Default.Save();
         }
 

@@ -118,52 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Play_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Play_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hq720" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hq720.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Starlight_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Starlight_Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Starlight_Logo(1).ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\62bb9c5e9379f83cc7cc2513_launch_Artboard 3_white (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\highlight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_7z" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\7z.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="BG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pso2-blogroll-1589648040810_160w.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="download" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Download_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Download_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Settings_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="play_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\play_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="play_btn_dn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\play_btn_dn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="play_btn_mo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\play_btn_mo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_7z" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7z.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Starlight_Logo(1).ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\highlight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pso2-blogroll-1589648040810_160w.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="play_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Download_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Download_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Starlight_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Starlight_Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hq720" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hq720.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\62bb9c5e9379f83cc7cc2513_launch_Artboard 3_white (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settings1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings_click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="download" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
