@@ -23,6 +23,7 @@ using System.Runtime.Remoting.Contexts;
 using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Web.WebView2.Core;
 
+
 namespace SLauncher
 {
     
@@ -59,9 +60,9 @@ namespace SLauncher
         {
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--autoplay-policy=no-user-gesture-required");
             Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"\\Starlight");
-            CheckUpdate();
+            
             InitializeComponent();
-
+            
             //sets 
             if (Properties.Settings.Default.gamedirectory == "")
             {
@@ -185,8 +186,8 @@ namespace SLauncher
             // gameD.Text = Properties.Settings.Default.gamedirectory;
             //this.AutoSize = false;
             //this.Size = new Size(500,450)
-            
 
+            CheckUpdate();
 
         }
 
@@ -226,6 +227,7 @@ namespace SLauncher
                                     fileStream.Write(df, 0, df.Length);
 
                                 sevenzip(System.AppDomain.CurrentDomain.BaseDirectory);
+                                
                                 RunUpdate(System.AppDomain.CurrentDomain.BaseDirectory);
                             }
                         }catch (Exception ex)
@@ -256,6 +258,7 @@ namespace SLauncher
                                 fileStream.Write(df, 0, df.Length);
                         }
                         sevenzip(System.AppDomain.CurrentDomain.BaseDirectory);
+                        this.Close();
                         RunUpdate(System.AppDomain.CurrentDomain.BaseDirectory);
 
 
@@ -306,7 +309,7 @@ namespace SLauncher
                     File.Delete(runningpath + "\\Resources\\d.7z");
                 }
             }
-            
+
             
         }
 
