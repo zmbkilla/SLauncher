@@ -1611,6 +1611,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -5581,15 +5589,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Starlight Launcher"
-        "ProductCode" = "8:{5C5D4DD7-5C16-4FC5-8184-EB423D94222D}"
-        "PackageCode" = "8:{674DBB44-DCBA-49B4-9A44-A9FE349394F0}"
+        "ProductCode" = "8:{E95A2D25-B5D2-4831-BF48-1C51D02EA1C3}"
+        "PackageCode" = "8:{DC659C41-90CC-451F-8FE0-D46E61616FC8}"
         "UpgradeCode" = "8:{9AD51D2C-ACF6-4C8F-8E8C-855855904968}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.0.48"
+        "ProductVersion" = "8:0.0.49"
         "Manufacturer" = "8:SL"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

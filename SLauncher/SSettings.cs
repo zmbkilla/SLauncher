@@ -20,6 +20,12 @@ namespace SLauncher
         public int rheight, rwidth,j,bs;
         public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movbl, vl1,vl2,vl3,vl4;
 
+        private void ctheme_Click(object sender, EventArgs e)
+        {
+            Themes ct = new Themes();
+            ct.ShowDialog();
+        }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             FolderBrowserDialog gdir = new FolderBrowserDialog();

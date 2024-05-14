@@ -188,7 +188,9 @@ namespace SLauncher
             //this.Size = new Size(500,450)
 
             CheckUpdate();
-
+            LoadTheme();
+            
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -204,8 +206,10 @@ namespace SLauncher
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             string redirUrl = response.Headers["Location"];
             response.Close();
-            
-            if (redirUrl.Contains("0.0.48"))
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+
+            if (redirUrl.Contains(fvi.FileVersion))
             {
                 if (chkup == true)
                 {
@@ -238,7 +242,7 @@ namespace SLauncher
                     chkup = false;
                 }
             } 
-            else if (!redirUrl.Contains("0.0.48"))
+            else if (!redirUrl.Contains(fvi.FileVersion))
             {
                 DialogResult downres = MessageBox.Show("Update available. Would you like to update?", "Notification", MessageBoxButtons.YesNo);
                 if (downres == DialogResult.Yes)
@@ -271,6 +275,51 @@ namespace SLauncher
                 }
 
                 chkup = false;
+            }
+        }
+
+        public void Changetheme(Image bg)
+        {
+            byte[] converted64 = Convert.FromBase64String(Properties.Settings.Default.CustomTheme);
+            MemoryStream memoryStream = new MemoryStream(converted64);
+            if (Properties.Settings.Default.UsingTheme == true)
+            {
+                this.BackgroundImage = Image.FromStream(memoryStream);
+            }
+            else
+            {
+                this.BackgroundImage = Resources.fbg;
+            }
+            
+        }
+
+        public void SettingTheme(bool showL)
+        {
+            if (showL==true) {
+                Logo.Visible = true;
+            }
+            else
+            {
+                Logo.Visible = false;
+            }
+        }
+
+        private void LoadTheme()
+        {
+            if (Properties.Settings.Default.UsingTheme == true)
+            {
+                byte[] converted64 = Convert.FromBase64String(Properties.Settings.Default.CustomTheme);
+                MemoryStream memoryStream = new MemoryStream(converted64);
+                this.BackgroundImage = Image.FromStream(memoryStream);
+            }
+
+            //logo
+            if (Properties.Settings.Default.ShowLogo == true)
+            {
+                Logo.Visible= true;
+            }else if (Properties.Settings.Default.ShowLogo == false)
+            {
+                Logo.Visible = false;
             }
         }
        
@@ -460,6 +509,22 @@ namespace SLauncher
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            webView21.Source = new Uri("https://zmbkilla.github.io/SLWeb/update");
+        }
+
+        private void webView21_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
+        {
+            if (webView21.Source != new Uri("https://zmbkilla.github.io/SLWeb/update"))
+            {
+                web_back1.Visible = true;
+            }else if(webView21.Source == new Uri("https://zmbkilla.github.io/SLWeb/update"))
+            {
+                web_back1.Visible = false;
+            }
+        }
+
+        private void web_back1_Click(object sender, EventArgs e)
         {
             webView21.Source = new Uri("https://zmbkilla.github.io/SLWeb/update");
         }
