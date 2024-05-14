@@ -59,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(730, 256);
             this.Controls.Add(this.Console1);
             this.Controls.Add(this.progressBar1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Download";
             this.Text = "Download";
             this.Load += new System.EventHandler(this.Download_Load);
