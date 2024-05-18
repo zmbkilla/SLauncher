@@ -54,10 +54,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.settingbox = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ctheme = new System.Windows.Forms.Button();
             this.gameD = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.ctheme = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.shaderlvl = new System.Windows.Forms.NumericUpDown();
+            this.textres = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Dfilter = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -68,6 +77,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.shaderlvl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dfilter)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -300,6 +312,15 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.AutoScrollMargin = new System.Drawing.Size(0, 1000);
+            this.panel1.Controls.Add(this.comboBox3);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.Dfilter);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.textres);
+            this.panel1.Controls.Add(this.shaderlvl);
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.numericUpDown4);
             this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.comboBox1);
@@ -351,6 +372,16 @@
             this.panel2.Size = new System.Drawing.Size(647, 473);
             this.panel2.TabIndex = 24;
             // 
+            // ctheme
+            // 
+            this.ctheme.Location = new System.Drawing.Point(47, 213);
+            this.ctheme.Name = "ctheme";
+            this.ctheme.Size = new System.Drawing.Size(99, 23);
+            this.ctheme.TabIndex = 23;
+            this.ctheme.Text = "Change theme";
+            this.ctheme.UseVisualStyleBackColor = true;
+            this.ctheme.Click += new System.EventHandler(this.ctheme_Click);
+            // 
             // gameD
             // 
             this.gameD.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -382,15 +413,83 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // ctheme
+            // label11
             // 
-            this.ctheme.Location = new System.Drawing.Point(47, 213);
-            this.ctheme.Name = "ctheme";
-            this.ctheme.Size = new System.Drawing.Size(99, 23);
-            this.ctheme.TabIndex = 23;
-            this.ctheme.Text = "Change theme";
-            this.ctheme.UseVisualStyleBackColor = true;
-            this.ctheme.Click += new System.EventHandler(this.ctheme_Click);
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(345, 391);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(282, 37);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Graphics settings";
+            // 
+            // shaderlvl
+            // 
+            this.shaderlvl.Location = new System.Drawing.Point(478, 441);
+            this.shaderlvl.Name = "shaderlvl";
+            this.shaderlvl.Size = new System.Drawing.Size(47, 20);
+            this.shaderlvl.TabIndex = 23;
+            // 
+            // textres
+            // 
+            this.textres.Location = new System.Drawing.Point(478, 475);
+            this.textres.Name = "textres";
+            this.textres.Size = new System.Drawing.Size(47, 20);
+            this.textres.TabIndex = 24;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(384, 444);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 13);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Shader Level:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(373, 477);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 13);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "Texture Resoultion:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(388, 510);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 13);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Draw Filter:";
+            // 
+            // Dfilter
+            // 
+            this.Dfilter.Location = new System.Drawing.Point(478, 510);
+            this.Dfilter.Name = "Dfilter";
+            this.Dfilter.Size = new System.Drawing.Size(47, 20);
+            this.Dfilter.TabIndex = 27;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(378, 547);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(79, 13);
+            this.label15.TabIndex = 30;
+            this.label15.Text = "Shader Quality:";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.comboBox3.Location = new System.Drawing.Point(474, 544);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(56, 21);
+            this.comboBox3.TabIndex = 31;
             // 
             // SSettings
             // 
@@ -424,6 +523,9 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.shaderlvl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textres)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dfilter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -460,5 +562,14 @@
         private System.Windows.Forms.Label gameD;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button ctheme;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown Dfilter;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown textres;
+        private System.Windows.Forms.NumericUpDown shaderlvl;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }

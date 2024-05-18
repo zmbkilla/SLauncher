@@ -191,9 +191,13 @@ namespace SLauncher
                 sLine[pos[2]] = sLine[pos[2]].Replace("Voice = " + vl2, "Voice = " + numericUpDown2.Value.ToString());
                 sLine[pos[3]] = sLine[pos[3]].Replace("Movie = " + vl3, "Movie = " + numericUpDown3.Value.ToString());
                 sLine[pos[4]] = sLine[pos[4]].Replace("Se = " + vl4, "Se = " + numericUpDown4.Value.ToString());
+                
+                //save graphics
+                sLine[pos[95]] = sLine[pos[95]].Replace("ShaderLevel = " + varl[95].ToString(), "ShaderLevel = " + shaderlvl.Value.ToString());
+                sLine[pos[94]] = sLine[pos[94]].Replace("TextureResolution = " + varl[94].ToString(), "TextureResolution = " + textres.Value.ToString());
+                sLine[pos[93]] = sLine[pos[93]].Replace("DrawFilter = " + varl[93].ToString(), "DrawFilter = " + Dfilter.Value.ToString());
+                sLine[pos[92]] = sLine[pos[92]].Replace("ShaderQuality = " + varl[92].ToString(), "ShaderQuality = " + comboBox3.Text);
                 File.WriteAllLines(setadd, sLine);
-
-
 
                 MessageBox.Show("Settings Saved", "Complete");
                 this.Close();
@@ -312,6 +316,37 @@ namespace SLauncher
                             pos[96] = i + 3;
                             
                         }
+                        //check for graphics settings
+                        if (rl.Trim().Contains("ShaderLevel ="))
+                        {
+                            //Shader level
+                            pos[95] = i ;
+
+
+                        }
+                        if (rl.Trim().Contains("TextureResolution ="))
+                        {
+                            //Texture Quality
+                            pos[94] = i;
+
+
+                        }
+                        if (rl.Trim().Contains("DrawFilter ="))
+                        {
+                            //Texture Quality
+                            pos[93] = i;
+
+
+                        }
+
+                        if (rl.Trim().Contains("ShaderQuality ="))
+                        {
+                            //Texture Quality
+                            pos[92] = i;
+
+
+                        }
+
                         if (rl.Trim() == "System = {")
                         {
                             
@@ -358,6 +393,29 @@ namespace SLauncher
             {
                 movbl = "false";
             }
+            //code for graphics
+            varl[95] = File.ReadLines(setadd).Skip(pos[95]).Take(1).Last();
+            varl[95] = Regex.Match(varl[95], @"[0-9]+").Value;
+            varl[94] = File.ReadLines(setadd).Skip(pos[94]).Take(1).Last();
+            varl[94] = Regex.Match(varl[94], @"[0-9]+").Value;
+            varl[93] = File.ReadLines(setadd).Skip(pos[93]).Take(1).Last();
+            varl[93] = Regex.Match(varl[93], @"[0-9]+").Value;
+            //get true/false
+            varl[92] = File.ReadLines(setadd).Skip(pos[92]).Take(1).Last();
+            varl[92].Trim();
+            //set control values
+            shaderlvl.Value = Convert.ToInt16(varl[95]);
+            textres.Value = Convert.ToInt16(varl[94]);
+            Dfilter.Value = Convert.ToInt16(varl[93]);
+            if (varl[92].Contains("true"))
+            {
+                comboBox3.SelectedIndex = 0;
+            } else if (varl[92].Contains("false"))
+            {
+                comboBox3.SelectedIndex = 1;
+            }
+            
+
             //code for sound
             varl[1] = File.ReadLines(setadd).Skip(pos[1]).Take(1).Last();
             varl[1] = Regex.Match(varl[1], @"[0-9]+").Value;
