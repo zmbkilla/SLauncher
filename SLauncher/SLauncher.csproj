@@ -121,6 +121,15 @@
     <Compile Include="Themes.Designer.cs">
       <DependentUpon>Themes.cs</DependentUpon>
     </Compile>
+    <None Include="Resources\LUPDATE_BTN.png" />
+    <None Include="Resources\LUPDATE_BTNDWN.png" />
+    <None Include="Resources\LUPDATE_BTNMO.png" />
+    <None Include="Resources\DOWNLOAD_BTN.png" />
+    <None Include="Resources\DOWNLOAD_BTNDWN.png" />
+    <None Include="Resources\DOWNLOAD_BTNMO.png" />
+    <None Include="Resources\SETTINGS_BTN.png" />
+    <None Include="Resources\SETTINGS_BTNDWN.png" />
+    <None Include="Resources\SETTINGS_BTNMO.png" />
     <Content Include="Themes\Place  themes here.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

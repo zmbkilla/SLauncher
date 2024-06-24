@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -19,6 +20,20 @@ namespace SLauncher
         //j = resolution, bs = basic
         public int rheight, rwidth,j,bs;
         public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movbl, vl1,vl2,vl3,vl4;
+        public string[] scalex = new string[9], scaley = new string[9];
+
+
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x84)
+            {
+                m.Result = new IntPtr(-1);
+                return;
+            }
+            base.WndProc(ref m);
+        }
+
 
         private void ctheme_Click(object sender, EventArgs e)
         {
@@ -185,6 +200,21 @@ namespace SLauncher
                     File.WriteAllLines(setadd, arrLine);
                 }
 
+                if (checkBox2.Checked == true)
+                {
+                    string[] arrLine = File.ReadAllLines(setadd);
+                    arrLine[pos[5]] = arrLine[pos[5]].Replace("PadBackgroundUse = " + varl[5], "PadBackgroundUse = true");
+                    File.WriteAllLines(setadd, arrLine);
+                }
+                else
+                {
+                    string[] arrLine = File.ReadAllLines(setadd);
+                    arrLine[pos[0]] = arrLine[pos[0]].Replace("PadBackgroundUse = " + varl[5], "PadBackgroundUse = false");
+                    File.WriteAllLines(setadd, arrLine);
+                }
+
+
+
                 //save sound
                 string[] sLine = File.ReadAllLines(setadd);
                 sLine[pos[1]] = sLine[pos[1]].Replace("Bgm = " + vl1, "Bgm = " + numericUpDown1.Value.ToString());
@@ -197,6 +227,62 @@ namespace SLauncher
                 sLine[pos[94]] = sLine[pos[94]].Replace("TextureResolution = " + varl[94].ToString(), "TextureResolution = " + textres.Value.ToString());
                 sLine[pos[93]] = sLine[pos[93]].Replace("DrawFilter = " + varl[93].ToString(), "DrawFilter = " + Dfilter.Value.ToString());
                 sLine[pos[92]] = sLine[pos[92]].Replace("ShaderQuality = " + varl[92].ToString(), "ShaderQuality = " + comboBox3.Text);
+                sLine[pos[91]] = sLine[pos[91]].Replace("AnisotropicFiltering = " + varl[91].ToString(), "AnisotropicFiltering = " + comboBox4.SelectedIndex.ToString());
+
+                //save Scaling
+                if(comboBox6.Text != "Default")
+                {
+                    sLine[pos[90]] = sLine[pos[90]].Replace("PreferredScale = " + varl[90].ToString(), "PreferredScale = " + comboBox6.Text);
+                    if(comboBox6.Text == "0.4")
+                    {
+                        sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[1]);
+                        sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[1]);
+                    }
+                    if (comboBox6.Text == "0.6")
+                    {
+                        sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[2]);
+                        sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[2]);
+
+                    }
+                    if (comboBox6.Text == "0.8")
+                    {
+                        sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[3]);
+                        sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[3]);
+                    }
+                    if (comboBox6.Text == "1.4")
+                    {
+                        sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[4]);
+                        sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[4]);
+                    }
+                    if (comboBox6.Text == "1.8")
+                    {
+                        sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[5]);
+                        sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[5]);
+                    }
+                    if (comboBox6.Text == "2.2")
+                    {
+                        sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[6]);
+                        sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[6]);
+                    }
+                }else if (comboBox6.Text == "Default")
+                {
+                    sLine[pos[90]] = sLine[pos[90]].Replace("PreferredScale = " + varl[90].ToString(), "PreferredScale = " + "1.0");
+                    sLine[pos[89]] = sLine[pos[89]].Replace("Y = " + varl[89].ToString(), "Y = " + scaley[0]);
+                    sLine[pos[88]] = sLine[pos[88]].Replace("X = " + varl[88].ToString(), "X = " + scalex[0]);
+                }
+
+
+                //save simple
+                sLine[pos[86]] = sLine[pos[86]].Replace("DrawLevel = " + varl[86].ToString(), "DrawLevel = " + trackBar5.Value.ToString());
+
+
+
+
+
+
+
+
+
                 File.WriteAllLines(setadd, sLine);
 
                 MessageBox.Show("Settings Saved", "Complete");
@@ -210,6 +296,12 @@ namespace SLauncher
         
         }
 
+        protected override System.Drawing.Point ScrollToControl(System.Windows.Forms.Control activeControl)
+        {
+            // Returning the current location prevents the panel from
+            // scrolling to the active control when the panel loses and regains focus
+            return this.DisplayRectangle.Location;
+        }
         private void Settings_Load(object sender, EventArgs e)
         {
             setadd = Properties.Settings.Default.settingdirectory;
@@ -264,7 +356,8 @@ namespace SLauncher
 
                     StreamReader sr = new StreamReader(setadd);
                     setadd = Properties.Settings.Default.settingdirectory;
-                    while (i < 999)
+                    int flength = File.ReadAllLines(setadd).Length;
+                    while (i < flength)
                     {
                         rl = sr.ReadLine();
                         //checks if valid setting file by reading first line
@@ -284,21 +377,27 @@ namespace SLauncher
 
                         }
                         //check basic settings
-                        if (rl.Trim() == "MoviePlay = true,")
+                        if (rl.Trim().Contains("MoviePlay ="))
                         {
 
                             pos[0] = i;
                             
                             
                         }
+                        if (rl.Trim().Contains ("PadBackgroundUse ="))
+                        {
 
+                            pos[5] = i;
+
+
+                        }
                         //check for sound settings
                         if ( rl.Trim() == "Sound = {")
                         {
-                            pos[1] = i+6;
-                            pos[2] = i + 7;
-                            pos[3] = i+8;
-                            pos[4] = i+ 9;
+                            pos[1] = i+3;
+                            pos[2] = i + 5;
+                            pos[3] = i+6;
+                            pos[4] = i+ 4;
                         }
 
 
@@ -306,14 +405,14 @@ namespace SLauncher
                         if (rl.Trim() == "Windows = {")
                         {
                             //height
-                            pos[99] = i+2;
+                            pos[99] = i+3;
                             
                             //width
-                            pos[98] = i+5;
+                            pos[98] = i+6;
                             //fscreen
-                            pos[97] = i + 1;
+                            pos[97] = i + 2;
                             //vscreen
-                            pos[96] = i + 3;
+                            pos[96] = i + 4;
                             
                         }
                         //check for graphics settings
@@ -333,7 +432,7 @@ namespace SLauncher
                         }
                         if (rl.Trim().Contains("DrawFilter ="))
                         {
-                            //Texture Quality
+                            //Draw Filter
                             pos[93] = i;
 
 
@@ -341,17 +440,63 @@ namespace SLauncher
 
                         if (rl.Trim().Contains("ShaderQuality ="))
                         {
-                            //Texture Quality
+                            //Shader Quality
                             pos[92] = i;
 
 
                         }
-
-                        if (rl.Trim() == "System = {")
+                        
+                        if (rl.Trim().Contains("AnisotropicFiltering ="))
                         {
                             
-                            break;
+                            pos[91] = i;
+
+
                         }
+
+                        if (rl.Trim().Contains("PreferredScale ="))
+                        {
+                            //screen setting has bug that somehow moves paramters around. have to read them separately
+                            pos[90] = i;
+
+
+                        }
+                        //ReferenceResolutionRE =
+                        if (rl.Trim().Contains("ReferenceResolutionRE ="))
+                        {
+                            //related to pos[90]
+                            //SizeY
+                            pos[89] = i+1;
+                            pos[88] = i + 2;
+
+
+                        }
+                        //UI size
+                        if (rl.Trim().Contains("InterfaceSizeRE ="))
+                        {
+                            //related to pos[90]
+                            
+                            pos[87] = i;
+                            
+
+
+                        }
+                        //simple
+                        if (rl.Trim().Contains("Simple = {"))
+                        {
+                            //related to pos[90]
+                            //Sizex
+                            pos[86] = i+1;
+
+
+
+                        }
+                        //end
+                        //if (rl.Trim() == "System = {")
+                        //{
+                        //    
+                        //    break;
+                        //}
 
                         i += 1;
                     }
@@ -374,6 +519,8 @@ namespace SLauncher
             }
             varl[0] = File.ReadLines(setadd).Skip(pos[0]).Take(1).Last();
             varl[0].Trim();
+            varl[5] = File.ReadLines(setadd).Skip(pos[5]).Take(1).Last();
+            varl[5].Trim();
             varl[99] = File.ReadLines(setadd).Skip(pos[99]).Take(1).Last();
             varl[99] = Regex.Match(varl[99], @"[0-9]+").Value;
             varl[98] = File.ReadLines(setadd).Skip(pos[98]).Take(1).Last();
@@ -381,6 +528,21 @@ namespace SLauncher
             gres = varl[98] + " x " + varl[99];
             ph = varl[99];
             pw = varl[98];
+
+            scalex[0] = "1280";
+            scaley[0] = "720";
+            scalex[1] = "640";
+            scaley[1] = "480";
+            scalex[2] = "854";
+            scaley[2] = "480";
+            scalex[3] = "1024";
+            scaley[3] = "768";
+            scalex[4] = "1920";
+            scaley[4] = "1080";
+            scalex[5] = "2560";
+            scaley[5] = "1440";
+            scalex[6] = "3840";
+            scaley[6] = "2160";
 
             //code for basic settings checkbox
 
@@ -393,29 +555,73 @@ namespace SLauncher
             {
                 movbl = "false";
             }
-            //code for graphics
-            varl[95] = File.ReadLines(setadd).Skip(pos[95]).Take(1).Last();
-            varl[95] = Regex.Match(varl[95], @"[0-9]+").Value;
-            varl[94] = File.ReadLines(setadd).Skip(pos[94]).Take(1).Last();
-            varl[94] = Regex.Match(varl[94], @"[0-9]+").Value;
-            varl[93] = File.ReadLines(setadd).Skip(pos[93]).Take(1).Last();
-            varl[93] = Regex.Match(varl[93], @"[0-9]+").Value;
-            //get true/false
-            varl[92] = File.ReadLines(setadd).Skip(pos[92]).Take(1).Last();
-            varl[92].Trim();
-            //set control values
-            shaderlvl.Value = Convert.ToInt16(varl[95]);
-            textres.Value = Convert.ToInt16(varl[94]);
-            Dfilter.Value = Convert.ToInt16(varl[93]);
-            if (varl[92].Contains("true"))
+            //gamepad
+            if (varl[5].Contains("true"))
             {
-                comboBox3.SelectedIndex = 0;
-            } else if (varl[92].Contains("false"))
-            {
-                comboBox3.SelectedIndex = 1;
+                checkBox2.Checked = true;
+                
             }
-            
+            else
+            {
+                
+            }
 
+
+            //code for graphics
+            //varl[95] = File.ReadLines(setadd).Skip(pos[95]).Take(1).Last();
+            //varl[95] = Regex.Match(varl[95], @"[0-9]+").Value;
+            //varl[94] = File.ReadLines(setadd).Skip(pos[94]).Take(1).Last();
+            //varl[94] = Regex.Match(varl[94], @"[0-9]+").Value;
+            //varl[93] = File.ReadLines(setadd).Skip(pos[93]).Take(1).Last();
+            //varl[93] = Regex.Match(varl[93], @"[0-9]+").Value;
+            //get true/false
+            //varl[92] = File.ReadLines(setadd).Skip(pos[92]).Take(1).Last();
+            //varl[92].Trim();
+            //set control values
+            //shaderlvl.Value = Convert.ToInt16(varl[95]);
+            //textres.Value = Convert.ToInt16(varl[94]);
+            //Dfilter.Value = Convert.ToInt16(varl[93]);
+            //if (varl[92].Contains("true"))
+            //{
+            //    comboBox3.SelectedIndex = 0;
+            //} else if (varl[92].Contains("false"))
+            //{
+            //    comboBox3.SelectedIndex = 1;
+            //}
+            //anistropic
+            varl[91] = File.ReadLines(setadd).Skip(pos[91]).Take(1).Last();
+            varl[91] = Regex.Match(varl[91], @"[0-9]+").Value;
+            comboBox4.SelectedIndex = Convert.ToInt16(varl[91]);
+            //ui size
+            varl[87] = File.ReadLines(setadd).Skip(pos[87]).Take(1).Last();
+            varl[87] = Regex.Match(varl[87], @"[0-9]+").Value;
+            comboBox5.SelectedIndex = Convert.ToInt16(varl[87]);
+            //window/text size
+            varl[90] = File.ReadLines(setadd).Skip(pos[90]).Take(1).Last();
+            varl[90] = Regex.Match(varl[90], @"([0-9])+.[0-9]").Value;
+            varl[89] = File.ReadLines(setadd).Skip(pos[89]).Take(1).Last();
+            varl[89] = Regex.Match(varl[89], @"[0-9]+").Value;
+            varl[88] = File.ReadLines(setadd).Skip(pos[88]).Take(1).Last();
+            varl[88] = Regex.Match(varl[88], @"[0-9]+").Value;
+            bool found = false;
+            int loop = 0;
+            while (found != true)
+            {
+                comboBox6.SelectedIndex = loop;
+                string Default = "1.0";
+                
+                if (comboBox6.Text == varl[90].ToString()|| loop == 3 && Default == varl[90].ToString())
+                {
+                    found = true;
+                    break;
+                }
+                loop++;
+            }
+           
+            // simple
+            varl[86] = File.ReadLines(setadd).Skip(pos[86]).Take(1).Last();
+            varl[86] = Regex.Match(varl[86], @"[0-9]+").Value;
+            trackBar5.Value = Convert.ToInt16(varl[86]);
             //code for sound
             varl[1] = File.ReadLines(setadd).Skip(pos[1]).Take(1).Last();
             varl[1] = Regex.Match(varl[1], @"[0-9]+").Value;

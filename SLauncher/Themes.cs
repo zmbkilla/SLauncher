@@ -118,6 +118,12 @@ namespace SLauncher
             }
         }
 
+        private void Themes_Load(object sender, EventArgs e)
+        {
+            
+            
+        }
+
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             for (int ix = 0; ix < checkedListBox1.Items.Count; ++ix)

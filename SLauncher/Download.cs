@@ -30,6 +30,7 @@ namespace SLauncher
             FolderBrowserDialog Gamedown = new FolderBrowserDialog();
             Gamedown.Description = "Select the folder you want to download the game";
             Gamedown.ShowDialog();
+           
             Console1.Show();
 
             string filepath = Gamedown.SelectedPath;
@@ -153,12 +154,14 @@ namespace SLauncher
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
             if (filepath != "" || filepath == null)
             {
+
                 //old link https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88
                 webClient.DownloadFileAsync(new Uri("http://66.23.193.37/download/game.7z"), @filepath + "\\game.7z");
             }
             else
             {
                 MessageBox.Show("Error. No download address specified", "Error");
+                this.Close();
             }
 
 

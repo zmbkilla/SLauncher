@@ -60,7 +60,8 @@ namespace SLauncher
         {
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--autoplay-policy=no-user-gesture-required");
             Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"\\Starlight");
-            
+            Properties.Settings.Default.Upgrade();
+            Settings.Default.Save();
             InitializeComponent();
             
             //sets 
@@ -188,6 +189,7 @@ namespace SLauncher
             //this.Size = new Size(500,450)
 
             CheckUpdate();
+            
             LoadTheme();
             
             
@@ -262,6 +264,7 @@ namespace SLauncher
                                 fileStream.Write(df, 0, df.Length);
                         }
                         sevenzip(System.AppDomain.CurrentDomain.BaseDirectory);
+                        
                         this.Close();
                         RunUpdate(System.AppDomain.CurrentDomain.BaseDirectory);
 
@@ -340,24 +343,24 @@ namespace SLauncher
             };
 
             Process x = Process.Start(pz);
-
-            x.WaitForExit();
-            DialogResult deleteres = MessageBox.Show("Do you want to delete Update files?", "Confirmation", MessageBoxButtons.YesNo);
-            if (deleteres == DialogResult.Yes)
-            {
-                if (File.Exists(runningpath + "\\Resources\\Setup.exe"))
-                {
-                    File.Delete(runningpath + "\\Resources\\Setup.exe");
-                }
-                if (File.Exists(runningpath + "\\Resources\\Setup1.msi"))
-                {
-                    File.Delete(runningpath + "\\Resources\\Setup1.msi");
-                }
-                if (File.Exists(runningpath + "\\Resources\\d.7z"))
-                {
-                    File.Delete(runningpath + "\\Resources\\d.7z");
-                }
-            }
+            Application.Exit();
+            //x.WaitForExit();
+            //DialogResult deleteres = MessageBox.Show("Do you want to delete Update files?", "Confirmation", MessageBoxButtons.YesNo);
+            //if (deleteres == DialogResult.Yes)
+            //{
+            //    if (File.Exists(runningpath + "\\Resources\\Setup.exe"))
+            //    {
+            //        File.Delete(runningpath + "\\Resources\\Setup.exe");
+            //    }
+            //    if (File.Exists(runningpath + "\\Resources\\Setup1.msi"))
+            //    {
+            //        File.Delete(runningpath + "\\Resources\\Setup1.msi");
+            //    }
+            //    if (File.Exists(runningpath + "\\Resources\\d.7z"))
+            //    {
+            //        File.Delete(runningpath + "\\Resources\\d.7z");
+            //    }
+            //}
 
             
         }
@@ -485,22 +488,22 @@ namespace SLauncher
 
         private void pictureBox3_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox3.Image = Resources.Download_click;
+            pictureBox3.Image = Resources.DOWNLOAD_BTNMO;
         }
 
         private void pictureBox3_MouseLeave(object sender, EventArgs e)
         {
-            pictureBox3.Image = Resources.download;
+            pictureBox3.Image = Resources.DOWNLOAD_BTN;
         }
 
         private void pictureBox2_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox2.Image = Resources.Settings_click;
+            pictureBox2.Image = Resources.SETTINGS_BTNMO;
         }
 
         private void pictureBox2_MouseLeave(object sender, EventArgs e)
         {
-            pictureBox2.Image = Resources.settings;
+            pictureBox2.Image = Resources.SETTINGS_BTN;
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -510,7 +513,7 @@ namespace SLauncher
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            webView21.Source = new Uri("https://zmbkilla.github.io/SLWeb/update");
+            webView21.Source = new Uri("http://rilord.site.nfoservers.com/Launcher_Infopanel/update.html");
         }
 
         private void webView21_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
@@ -526,7 +529,45 @@ namespace SLauncher
 
         private void web_back1_Click(object sender, EventArgs e)
         {
-            webView21.Source = new Uri("https://zmbkilla.github.io/SLWeb/update");
+            webView21.Source = new Uri("http://rilord.site.nfoservers.com/Launcher_Infopanel/update.html");
+        }
+
+        private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox3.Image= Resources.DOWNLOAD_BTNDWN;
+        }
+
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox2.Image= Resources.SETTINGS_BTNDWN;
+        }
+
+        private void pictureBox4_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox4.Image = Resources.LUPDATE_BTNMO;
+        }
+
+        private void pictureBox4_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox4.Image = Resources.LUPDATE_BTN;
+        }
+
+        private void pictureBox4_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox4.Image= Resources.LUPDATE_BTNDWN;
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Would you like to check updates?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                chkup = true;
+                
+
+
+                CheckUpdate();
+            }
         }
 
         bool IsShown = false;

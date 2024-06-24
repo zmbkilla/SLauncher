@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SSettings));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,21 +53,31 @@
             this.label9 = new System.Windows.Forms.Label();
             this.trackBar4 = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.trackBar5 = new System.Windows.Forms.TrackBar();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Dfilter = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textres = new System.Windows.Forms.NumericUpDown();
+            this.shaderlvl = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             this.settingbox = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ctheme = new System.Windows.Forms.Button();
             this.gameD = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.shaderlvl = new System.Windows.Forms.NumericUpDown();
-            this.textres = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.Dfilter = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -76,10 +87,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shaderlvl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dfilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shaderlvl)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -311,7 +323,16 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
-            this.panel1.AutoScrollMargin = new System.Drawing.Size(0, 1000);
+            this.panel1.AutoScrollMinSize = new System.Drawing.Size(0, 1000);
+            this.panel1.Controls.Add(this.comboBox6);
+            this.panel1.Controls.Add(this.label19);
+            this.panel1.Controls.Add(this.comboBox5);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.comboBox4);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.trackBar5);
+            this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.comboBox3);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label14);
@@ -340,11 +361,201 @@
             this.panel1.Controls.Add(this.trackBar2);
             this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.trackBar3);
-            this.panel1.Location = new System.Drawing.Point(400, 12);
+            this.panel1.Location = new System.Drawing.Point(401, 9);
             this.panel1.MaximumSize = new System.Drawing.Size(647, 473);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 473);
             this.panel1.TabIndex = 22;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Items.AddRange(new object[] {
+            "0.4",
+            "0.6",
+            "0.8",
+            "Default",
+            "1.4",
+            "1.8",
+            "2.2"});
+            this.comboBox6.Location = new System.Drawing.Point(442, 653);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(56, 21);
+            this.comboBox6.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.comboBox6, "Parameters:\r\n0.4 (fits 640 x 480)\r\n0.6 (fits 854 x 480)\r\n0.8 (fits 1024 x 768)\r\nD" +
+        "efault (fits 1280 x 720)\r\n1.4 (fits 1920 x 1080)\r\n1.8 (fits 2560 x 1440)\r\n2.2 (f" +
+        "its 3840 x 2160)");
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(340, 656);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(95, 13);
+            this.label19.TabIndex = 40;
+            this.label19.Text = "Text/Window Size";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "Small",
+            "Large"});
+            this.comboBox5.Location = new System.Drawing.Point(442, 613);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(56, 21);
+            this.comboBox5.TabIndex = 39;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(361, 616);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(41, 13);
+            this.label18.TabIndex = 38;
+            this.label18.Text = "UI Size";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "Bilinear",
+            "Trilinear",
+            "4x",
+            "8x",
+            "16x"});
+            this.comboBox4.Location = new System.Drawing.Point(441, 546);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(56, 21);
+            this.comboBox4.TabIndex = 37;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(337, 549);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 13);
+            this.label17.TabIndex = 36;
+            this.label17.Text = "Anistrophic Filtering";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold);
+            this.label16.Location = new System.Drawing.Point(72, 564);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(239, 37);
+            this.label16.TabIndex = 34;
+            this.label16.Text = "Simple Render";
+            // 
+            // trackBar5
+            // 
+            this.trackBar5.LargeChange = 1;
+            this.trackBar5.Location = new System.Drawing.Point(66, 613);
+            this.trackBar5.Maximum = 6;
+            this.trackBar5.Minimum = 1;
+            this.trackBar5.Name = "trackBar5";
+            this.trackBar5.Size = new System.Drawing.Size(223, 45);
+            this.trackBar5.TabIndex = 33;
+            this.trackBar5.Value = 1;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(325, 74);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(177, 17);
+            this.checkBox2.TabIndex = 32;
+            this.checkBox2.Text = "Allow Inactive Gamepad Control";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.comboBox3.Location = new System.Drawing.Point(442, 580);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(56, 21);
+            this.comboBox3.TabIndex = 31;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(346, 583);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(79, 13);
+            this.label15.TabIndex = 30;
+            this.label15.Text = "Shader Quality:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(352, 510);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 13);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Draw Filter:";
+            // 
+            // Dfilter
+            // 
+            this.Dfilter.Location = new System.Drawing.Point(442, 510);
+            this.Dfilter.Name = "Dfilter";
+            this.Dfilter.Size = new System.Drawing.Size(47, 20);
+            this.Dfilter.TabIndex = 27;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(337, 477);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 13);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "Texture Resoultion:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(348, 444);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 13);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Shader Level:";
+            // 
+            // textres
+            // 
+            this.textres.Location = new System.Drawing.Point(442, 475);
+            this.textres.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.textres.Name = "textres";
+            this.textres.Size = new System.Drawing.Size(47, 20);
+            this.textres.TabIndex = 24;
+            // 
+            // shaderlvl
+            // 
+            this.shaderlvl.Location = new System.Drawing.Point(442, 441);
+            this.shaderlvl.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.shaderlvl.Name = "shaderlvl";
+            this.shaderlvl.Size = new System.Drawing.Size(47, 20);
+            this.shaderlvl.TabIndex = 23;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(345, 391);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(282, 37);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Graphics settings";
             // 
             // settingbox
             // 
@@ -366,7 +577,7 @@
             this.panel2.Controls.Add(this.gameD);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.button1);
-            this.panel2.Location = new System.Drawing.Point(400, 12);
+            this.panel2.Location = new System.Drawing.Point(401, 12);
             this.panel2.MaximumSize = new System.Drawing.Size(647, 473);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(647, 473);
@@ -413,84 +624,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(345, 391);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(282, 37);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Graphics settings";
-            // 
-            // shaderlvl
-            // 
-            this.shaderlvl.Location = new System.Drawing.Point(478, 441);
-            this.shaderlvl.Name = "shaderlvl";
-            this.shaderlvl.Size = new System.Drawing.Size(47, 20);
-            this.shaderlvl.TabIndex = 23;
-            // 
-            // textres
-            // 
-            this.textres.Location = new System.Drawing.Point(478, 475);
-            this.textres.Name = "textres";
-            this.textres.Size = new System.Drawing.Size(47, 20);
-            this.textres.TabIndex = 24;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(384, 444);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(73, 13);
-            this.label12.TabIndex = 25;
-            this.label12.Text = "Shader Level:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(373, 477);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(99, 13);
-            this.label13.TabIndex = 26;
-            this.label13.Text = "Texture Resoultion:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(388, 510);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 13);
-            this.label14.TabIndex = 28;
-            this.label14.Text = "Draw Filter:";
-            // 
-            // Dfilter
-            // 
-            this.Dfilter.Location = new System.Drawing.Point(478, 510);
-            this.Dfilter.Name = "Dfilter";
-            this.Dfilter.Size = new System.Drawing.Size(47, 20);
-            this.Dfilter.TabIndex = 27;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(378, 547);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(79, 13);
-            this.label15.TabIndex = 30;
-            this.label15.Text = "Shader Quality:";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.comboBox3.Location = new System.Drawing.Point(474, 544);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(56, 21);
-            this.comboBox3.TabIndex = 31;
-            // 
             // SSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,11 +654,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dfilter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textres)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shaderlvl)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shaderlvl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textres)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Dfilter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,5 +705,15 @@
         private System.Windows.Forms.NumericUpDown shaderlvl;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TrackBar trackBar5;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -93,6 +93,36 @@ namespace SLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DOWNLOAD_BTN {
+            get {
+                object obj = ResourceManager.GetObject("DOWNLOAD_BTN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DOWNLOAD_BTNDWN {
+            get {
+                object obj = ResourceManager.GetObject("DOWNLOAD_BTNDWN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DOWNLOAD_BTNMO {
+            get {
+                object obj = ResourceManager.GetObject("DOWNLOAD_BTNMO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Download_click {
             get {
                 object obj = ResourceManager.GetObject("Download_click", resourceCulture);
@@ -153,6 +183,36 @@ namespace SLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LUPDATE_BTN {
+            get {
+                object obj = ResourceManager.GetObject("LUPDATE_BTN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LUPDATE_BTNDWN {
+            get {
+                object obj = ResourceManager.GetObject("LUPDATE_BTNDWN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LUPDATE_BTNMO {
+            get {
+                object obj = ResourceManager.GetObject("LUPDATE_BTNMO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Play {
             get {
                 object obj = ResourceManager.GetObject("Play", resourceCulture);
@@ -206,6 +266,36 @@ namespace SLauncher.Properties {
         internal static System.Drawing.Bitmap settings {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SETTINGS_BTN {
+            get {
+                object obj = ResourceManager.GetObject("SETTINGS_BTN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SETTINGS_BTNDWN {
+            get {
+                object obj = ResourceManager.GetObject("SETTINGS_BTNDWN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SETTINGS_BTNMO {
+            get {
+                object obj = ResourceManager.GetObject("SETTINGS_BTNMO", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
