@@ -464,6 +464,8 @@ namespace SLauncher
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             SSettings sSettings = new SSettings();
+            MessageBox.Show("Settings file code broke. Sorry ;_;");
+            return;
             sSettings.TopLevel = false;
 
 
