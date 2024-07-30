@@ -37,15 +37,15 @@ namespace SLauncher
 
 
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
+        public  int WM_NCLBUTTONDOWN = 0xA1;
+        public  int HT_CAPTION = 0x2;
 
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void Form1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        public void Form1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -55,13 +55,18 @@ namespace SLauncher
         }
 
 
-
-        public Form1()
+        public void UpdatePSettings()
         {
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--autoplay-policy=no-user-gesture-required");
             Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"\\Starlight");
             Properties.Settings.Default.Upgrade();
             Settings.Default.Save();
+        }
+
+
+        public Form1()
+        {
+            
             InitializeComponent();
             
             //sets 
@@ -189,7 +194,10 @@ namespace SLauncher
             //this.Size = new Size(500,450)
 
             CheckUpdate();
-            
+            if (Properties.Settings.Default.UPDComplete == true)
+            {
+                UpdatePSettings();
+            }
             LoadTheme();
             
             
@@ -341,7 +349,8 @@ namespace SLauncher
                 WindowStyle = ProcessWindowStyle.Normal
 
             };
-
+            Properties.Settings.Default.UPDComplete = true;
+            Properties.Settings.Default.Save();
             Process x = Process.Start(pz);
             Application.Exit();
             //x.WaitForExit();
@@ -464,15 +473,17 @@ namespace SLauncher
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             SSettings sSettings = new SSettings();
-            MessageBox.Show("Settings file code broke. Sorry ;_;");
-            return;
+            //MessageBox.Show("Settings file code broke. Sorry ;_;");
+            //return;
             sSettings.TopLevel = false;
 
 
             this.AutoSize = true;
             this.Controls.Add(sSettings);
+            
             sSettings.Show();
-            this.Controls.SetChildIndex(sSettings, 0);
+            this.Controls.SetChildIndex(panel1,0);
+            this.Controls.SetChildIndex(sSettings, 1);
         }
 
         //Code for downloading game.
@@ -570,6 +581,11 @@ namespace SLauncher
 
                 CheckUpdate();
             }
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Form1_MouseDown(sender, e);
         }
 
         bool IsShown = false;

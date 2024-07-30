@@ -82,5 +82,41 @@ namespace SLauncher.Properties {
                 this["ShowLogo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SetOPCRID {
+            get {
+                return ((bool)(this["SetOPCRID"]));
+            }
+            set {
+                this["SetOPCRID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SetOPCRIDID {
+            get {
+                return ((int)(this["SetOPCRIDID"]));
+            }
+            set {
+                this["SetOPCRIDID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UPDComplete {
+            get {
+                return ((bool)(this["UPDComplete"]));
+            }
+            set {
+                this["UPDComplete"] = value;
+            }
+        }
     }
 }

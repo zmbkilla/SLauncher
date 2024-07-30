@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLauncher.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,19 +22,183 @@ namespace SLauncher
         public int rheight, rwidth,j,bs;
         public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movbl, vl1,vl2,vl3,vl4;
         public string[] scalex = new string[9], scaley = new string[9];
+        public bool initializing = true;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
 
 
+        //protected override void WndProc(ref Message m)
+        //{
+        //    if (m.Msg == 0x84)
+        //    {
+        //        m.Result = new IntPtr(-1);
+        //        return;
+        //    }
+        //    base.WndProc(ref m);
+        //}
 
-        protected override void WndProc(ref Message m)
+
+        private void runcommandmouse()
         {
-            if (m.Msg == 0x84)
-            {
-                m.Result = new IntPtr(-1);
-                return;
-            }
-            base.WndProc(ref m);
+            
         }
 
+        private void SSettings_MouseDown(object sender, MouseEventArgs e)
+        {
+
+
+            Form1 fm1 = (Form1)Application.OpenForms[0];
+            
+            fm1.Form1_MouseDown(sender,e);
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked == true && initializing == false)
+            {
+                ReplaceOps();
+                Properties.Settings.Default.SetOPCRID = true;
+                
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.SetOPCRIDID = CRIDcmbbox.SelectedIndex;
+                Properties.Settings.Default.Save();
+            }
+            else if (checkBox3.Checked == false && initializing == false)
+            {
+                DefaultOps();
+                Properties.Settings.Default.SetOPCRID = false;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.SetOPCRIDID = 6;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void InitializeOps()
+        {
+            string datalocation = Properties.Settings.Default.gamedirectory + "\\data\\win32";
+
+            PSO2Downloader downloader = new PSO2Downloader();
+            PSO2Files psf = new PSO2Files();
+            string[] files = psf.OpeningCRID;
+            File.WriteAllLines(Directory.GetCurrentDirectory() + "\\OPS.txt", files);
+            string[] args = new string[1];
+            args[0] = Directory.GetCurrentDirectory() + "\\OPS.txt";
+            bool checkdone = false;
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (!File.Exists(Directory.GetCurrentDirectory() + "\\patchData\\" + files[i]))
+                {
+                    args[0] = files[i];
+                    downloader.Main(args);
+                }
+
+                if (i == 6)
+                {
+                    checkdone = true;
+                }
+            }
+
+            if (!checkdone)
+            {
+                downloader.Main(args);
+            }
+            while(File.Exists(Directory.GetCurrentDirectory() + "\\OPS.txt"))
+            {
+                File.Delete(Directory.GetCurrentDirectory() + "\\OPS.txt");
+            }
+            
+            
+            
+            
+            
+        }
+
+        private void ReplaceOps()
+        {
+            string datalocation = Properties.Settings.Default.gamedirectory+"\\";
+
+            PSO2Downloader downloader = new PSO2Downloader();
+            PSO2Files psf = new PSO2Files();
+            string[] files = psf.OpeningCRID;
+            string temp = "";
+
+            switch (CRIDcmbbox.SelectedIndex)
+            {
+                case 0: temp = datalocation + files[0] + "_temp"; File.Move(datalocation + files[6], temp); File.Move(datalocation + files[0], datalocation + files[6]); File.Move(temp, datalocation + files[0]);
+                    break;
+                case 1:
+                     temp = datalocation + files[1] + "_temp"; File.Move(datalocation + files[6], temp); File.Move(datalocation + files[1], datalocation + files[6]); File.Move(temp, datalocation + files[1]);
+                    break;
+                case 2:
+                    temp = datalocation + files[2] + "_temp"; File.Move(datalocation + files[6], temp); File.Move(datalocation + files[2], datalocation + files[6]); File.Move(temp, datalocation + files[2]);
+                    break;
+                case 3:
+                    temp = datalocation + files[3] + "_temp"; File.Move(datalocation + files[6], temp); File.Move(datalocation + files[3], datalocation + files[6]); File.Move(temp, datalocation + files[3]);
+                    break;
+                case 4:
+                    temp = datalocation + files[4] + "_temp"; File.Move(datalocation + files[6], temp); File.Move(datalocation + files[4], datalocation + files[6]); File.Move(temp, datalocation + files[4]);
+                    break;
+                case 5:
+                    temp = datalocation + files[5] + "_temp"; File.Move(datalocation + files[6], temp); File.Move(datalocation + files[5], datalocation + files[6]); File.Move(temp, datalocation + files[5]);
+                    break;
+                case 6:
+                    temp = datalocation + files[Properties.Settings.Default.SetOPCRIDID] + "_temp"; File.Move(datalocation + files[Properties.Settings.Default.SetOPCRIDID], temp); File.Move(datalocation + files[6], datalocation + files[Properties.Settings.Default.SetOPCRIDID]); File.Move(temp, datalocation + files[6]);
+                    break;
+                
+            }
+
+
+            //for (int i = 0;i<files.Length;i++)
+            //{
+            //    ////File.Copy(Directory.GetCurrentDirectory() + "\\patchData\\" + files[CRIDcmbbox.SelectedIndex], datalocation +"\\"+ files[i],true);
+            //    //if (CRIDcmbbox.SelectedIndex != i)
+            //    //{
+            //    //    File.Move(datalocation + "//" + files[CRIDcmbbox.SelectedIndex], datalocation + "//" + files[i]);
+            //    //}
+            //
+            //    
+            //    
+            //}
+        }
+
+        private void DefaultOps()
+        {
+            string datalocation = Properties.Settings.Default.gamedirectory;
+
+            PSO2Downloader downloader = new PSO2Downloader();
+            PSO2Files psf = new PSO2Files();
+            string[] files = psf.OpeningCRID;
+            for (int i = 0; i < files.Length; i++)
+            {
+                File.Copy(Directory.GetCurrentDirectory() + "\\patchData\\" + files[i], datalocation +"\\"+ files[i], true);
+            }
+
+
+
+
+
+
+        }
+
+        private void CRIDcmbbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (initializing == false && checkBox3.Checked == true)
+            {
+                ReplaceOps();
+                Properties.Settings.Default.SetOPCRIDID = CRIDcmbbox.SelectedIndex;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            Form1 fm1 = (Form1)Application.OpenForms[0];
+            
+            fm1.Form1_MouseDown(sender, e);
+        }
 
         private void ctheme_Click(object sender, EventArgs e)
         {
@@ -117,22 +282,30 @@ namespace SLauncher
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
+            //Form1 form1 = (Form1)Application.OpenForms[0];
 
+            Form1 form1 = new Form1();
             this.AutoSize = false;
             form1.AutoSize = false;
             this.Width = 800;
             this.Height = 500;
-            
+            //form1.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((Left)));
+
             //form1.Size = new Size(800, 450);
-            
-            
-            
-            this.Dispose();
+
+
+            initializing = true;
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+            
+            this.Close();
+            initializing = true;
+            return;
+
             try
             {
                 //save resolution
@@ -307,8 +480,26 @@ namespace SLauncher
             setadd = Properties.Settings.Default.settingdirectory;
             bool load_fin = false;
             bool Set_val = true;
+
+            bool cridbool;
+            int cridID;
+            cridbool = Properties.Settings.Default.SetOPCRID;
+            cridID = Properties.Settings.Default.SetOPCRIDID;
+
+            InitializeOps();
             
-            
+            if (Properties.Settings.Default.SetOPCRID == true)
+            {
+                checkBox3.Checked = true;
+                CRIDcmbbox.SelectedIndex = cridID;
+            }
+            else
+            {
+                CRIDcmbbox.SelectedIndex = 0;
+            }
+
+            initializing = false;
+            return;
             while (load_fin != true) 
             {
                 

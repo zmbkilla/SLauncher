@@ -78,6 +78,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label20 = new System.Windows.Forms.Label();
+            this.CRIDcmbbox = new System.Windows.Forms.ComboBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -127,7 +130,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(273, 73);
             this.label1.TabIndex = 1;
@@ -361,7 +364,7 @@
             this.panel1.Controls.Add(this.trackBar2);
             this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.trackBar3);
-            this.panel1.Location = new System.Drawing.Point(401, 9);
+            this.panel1.Location = new System.Drawing.Point(396, 51);
             this.panel1.MaximumSize = new System.Drawing.Size(647, 473);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 473);
@@ -563,7 +566,7 @@
             this.settingbox.Items.AddRange(new object[] {
             "Game",
             "Launcher"});
-            this.settingbox.Location = new System.Drawing.Point(111, 124);
+            this.settingbox.Location = new System.Drawing.Point(111, 177);
             this.settingbox.Name = "settingbox";
             this.settingbox.Size = new System.Drawing.Size(121, 21);
             this.settingbox.TabIndex = 23;
@@ -573,15 +576,19 @@
             // 
             this.panel2.AutoScroll = true;
             this.panel2.AutoScrollMargin = new System.Drawing.Size(0, 1000);
+            this.panel2.Controls.Add(this.checkBox3);
+            this.panel2.Controls.Add(this.CRIDcmbbox);
+            this.panel2.Controls.Add(this.label20);
             this.panel2.Controls.Add(this.ctheme);
             this.panel2.Controls.Add(this.gameD);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.button1);
-            this.panel2.Location = new System.Drawing.Point(401, 12);
+            this.panel2.Location = new System.Drawing.Point(396, 35);
             this.panel2.MaximumSize = new System.Drawing.Size(647, 473);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(647, 473);
             this.panel2.TabIndex = 24;
+            this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
             // 
             // ctheme
             // 
@@ -624,6 +631,42 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(44, 142);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(227, 13);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "Replace opening movie (replaces all openings)";
+            // 
+            // CRIDcmbbox
+            // 
+            this.CRIDcmbbox.FormattingEnabled = true;
+            this.CRIDcmbbox.Items.AddRange(new object[] {
+            "Episode 1",
+            "Episode 2",
+            "Episode 2 (Mining Base)",
+            "Episode 3",
+            "Episode 4",
+            "Episode 5",
+            "Episode 6"});
+            this.CRIDcmbbox.Location = new System.Drawing.Point(300, 142);
+            this.CRIDcmbbox.Name = "CRIDcmbbox";
+            this.CRIDcmbbox.Size = new System.Drawing.Size(121, 21);
+            this.CRIDcmbbox.TabIndex = 25;
+            this.CRIDcmbbox.SelectedIndexChanged += new System.EventHandler(this.CRIDcmbbox_SelectedIndexChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(47, 167);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.TabIndex = 26;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
             // SSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,14 +679,16 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.sbut);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SSettings";
             this.Text = "Settings";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Settings_Load);
             this.Leave += new System.EventHandler(this.SSettings_Leave);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SSettings_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
@@ -715,5 +760,8 @@
         private System.Windows.Forms.ComboBox comboBox6;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox CRIDcmbbox;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }
