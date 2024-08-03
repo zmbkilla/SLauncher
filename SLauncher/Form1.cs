@@ -114,7 +114,7 @@ namespace SLauncher
 
             //File.Create("version.txt");
             File.WriteAllText("version.txt",ver.ToString());
-            
+            UpdatePSettings();
 
         }
 
