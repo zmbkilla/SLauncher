@@ -154,9 +154,10 @@ namespace SLauncher
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
             if (filepath != "" || filepath == null)
             {
-
+                webClient.DownloadFileAsync(new Uri("https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88"), filepath + "\\game.7z");
                 //old link https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88
-                webClient.DownloadFileAsync(new Uri("http://66.23.193.37/download/game.7z"), @filepath + "\\game.7z");
+                //broke link
+                //webClient.DownloadFileAsync(new Uri("http://66.23.193.37/download/game.7z"), @filepath + "\\game.7z");
             }
             else
             {

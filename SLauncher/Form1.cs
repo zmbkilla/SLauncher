@@ -22,6 +22,11 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Contexts;
 using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Web.WebView2.Core;
+using System.Security.AccessControl;
+using System.Security.Principal;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 
 namespace SLauncher
@@ -33,6 +38,9 @@ namespace SLauncher
         public double ver = 0.44;
         public int defx = 500, defy = 450;
         public bool chkup = false;
+        int opvid = 0;
+        bool opcheckstatus = false;
+        string gdir = "";
 
 
 
@@ -55,6 +63,26 @@ namespace SLauncher
         }
 
 
+        private static void GrantAccess(string file)
+        {
+            bool exists = System.IO.Directory.Exists(file);
+            if (!exists)
+            {
+                DirectoryInfo di = System.IO.Directory.CreateDirectory(file);
+                Console.WriteLine("The Folder is created Sucessfully");
+            }
+            else
+            {
+                Console.WriteLine("The Folder already exists");
+            }
+            DirectoryInfo dInfo = new DirectoryInfo(file);
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+            dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+            dInfo.SetAccessControl(dSecurity);
+
+        }
+
+
         public void UpdatePSettings()
         {
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--autoplay-policy=no-user-gesture-required");
@@ -66,11 +94,25 @@ namespace SLauncher
 
         public Form1()
         {
-            
+            if (!File.Exists(Directory.GetCurrentDirectory() + "\\json\\settings.json"))
+            {
+                File.WriteAllLines(Directory.GetCurrentDirectory() + "\\json\\settings.json", File.ReadAllLines(Directory.GetCurrentDirectory()+"\\json\\SetDefault"));
+                MessageBox.Show("empty settings.json generated. Please populate it before restarting the app");
+                Application.Exit();
+            }
+            GrantAccess(Directory.GetCurrentDirectory() + "\\SLauncher.exe.WebView2\\EBWebView");
             InitializeComponent();
-            
+            string pathdir = Directory.GetCurrentDirectory() + "\\json\\settings.json";
+
+            dynamic jsettings = JsonConvert.DeserializeObject(File.ReadAllText(pathdir));
+            if (jsettings["gamedirectory"] == null) 
+            {
+                File.WriteAllLines(Directory.GetCurrentDirectory() + "\\json\\settings.json", File.ReadAllLines(Directory.GetCurrentDirectory() + "\\json\\SetDefault"));
+                MessageBox.Show("Corrupted settings json. Regenerated Settings file.");
+
+            }
             //sets 
-            if (Properties.Settings.Default.gamedirectory == "")
+            if (jsettings["gamedirectory"] == "")
             {
                 DialogResult dial = MessageBox.Show("This seems to be the first time you are running the launcher. Do you have an existing install of Starlight?","Notification",MessageBoxButtons.YesNo);
                 if(dial == DialogResult.Yes)
@@ -84,9 +126,13 @@ namespace SLauncher
                         dialog.ShowDialog();
                         if (dialog.SelectedPath != "" && File.Exists(dialog.SelectedPath + "\\pso2.exe"))
                         {
+                            string setfil = File.ReadAllText(pathdir);
+                            JObject JO = JObject.Parse(setfil);
+                            JO["gamedirectory"] = dialog.SelectedPath;
+                            File.WriteAllText(pathdir, JO.ToString(Formatting.Indented));
+                            //Properties.Settings.Default.gamedirectory = dialog.SelectedPath;
+                            //Properties.Settings.Default.Save();
                             
-                            Properties.Settings.Default.gamedirectory = dialog.SelectedPath;
-                            Properties.Settings.Default.Save();
                             check = true;
                             return;
                         }
@@ -114,7 +160,7 @@ namespace SLauncher
 
             //File.Create("version.txt");
             File.WriteAllText("version.txt",ver.ToString());
-            UpdatePSettings();
+            
 
         }
 
@@ -198,6 +244,7 @@ namespace SLauncher
             {
                 UpdatePSettings();
             }
+            
             LoadTheme();
             
             

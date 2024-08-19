@@ -1,4 +1,5 @@
-﻿using SLauncher.Properties;
+﻿using Newtonsoft.Json;
+using SLauncher.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -23,6 +25,8 @@ namespace SLauncher
         public string setadd,ph,pw,pf,pvf,gheight,gwidth,gres,movbl, vl1,vl2,vl3,vl4;
         public string[] scalex = new string[9], scaley = new string[9];
         public bool initializing = true;
+        public dynamic settingfil = JsonConvert.DeserializeObject(File.ReadAllText(Directory.GetCurrentDirectory()+"\\json\\settings.json"));
+
 
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
@@ -498,6 +502,12 @@ namespace SLauncher
                 CRIDcmbbox.SelectedIndex = 0;
             }
 
+            //load initial setting panel
+            //panel2.SendToBack();
+            //panel2.Enabled = false;
+            gameD.Text = settingfil["gamedirectory"];
+            settingbox.SelectedIndex = 0;
+
             initializing = false;
             return;
             while (load_fin != true) 
@@ -875,11 +885,7 @@ namespace SLauncher
 
             
 
-            //load initial setting panel
-            panel2.SendToBack();
-            panel2.Enabled = false;
-            gameD.Text = Properties.Settings.Default.gamedirectory;
-            settingbox.SelectedIndex = 0;
+            
             
         }
 
