@@ -6,5 +6,6 @@
   "settingsdirectory" : "",
   "ShowLogo" : false,
   "UPDComplete" : true,
-  "UsingTheme" : false
+  "UsingTheme": false,
+  "bgframerate":  0
 }

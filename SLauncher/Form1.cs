@@ -41,7 +41,9 @@ namespace SLauncher
         int opvid = 0;
         bool opcheckstatus = false;
         string gdir = "";
+        public static string pathdir = Directory.GetCurrentDirectory() + "\\json\\settings.json";
 
+        
 
 
 
@@ -102,7 +104,7 @@ namespace SLauncher
             }
             GrantAccess(Directory.GetCurrentDirectory() + "\\SLauncher.exe.WebView2\\EBWebView");
             InitializeComponent();
-            string pathdir = Directory.GetCurrentDirectory() + "\\json\\settings.json";
+            //string pathdir = Directory.GetCurrentDirectory() + "\\json\\settings.json";
 
             dynamic jsettings = JsonConvert.DeserializeObject(File.ReadAllText(pathdir));
             if (jsettings["gamedirectory"] == null) 
@@ -160,9 +162,54 @@ namespace SLauncher
 
             //File.Create("version.txt");
             File.WriteAllText("version.txt",ver.ToString());
-            
-
+            this.DoubleBuffered = true;
+            //this.AllowTransparency = true;
+            //this.BackColor = Color.FromArgb(120, 127, 127, 127);
+            new Task(UpdateBG).Start();
         }
+
+        public async void UpdateBG()
+        {
+            dynamic jsettings = JsonConvert.DeserializeObject(File.ReadAllText(pathdir));
+            bool f = false;
+            int i = 0;
+            DirectoryInfo DirInfo = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\bg");
+            var files = DirInfo.GetFiles("*.*",SearchOption.AllDirectories);
+            int FR;
+            try
+            {
+                FR = jsettings["bgframerate"];
+            }
+            catch
+            {
+                MessageBox.Show("Setting error: Invalid parameter for background framerate. Setting framerate to default");
+                FR = 25;
+            }
+            
+            
+            while(f != true)
+            {
+                i++;
+                
+                string img = Directory.GetCurrentDirectory() + "\\bg\\frame_" + i + ".jpg";
+                Bitmap bmp = new Bitmap(img);
+                this.BackgroundImage = bmp;
+                //bmp.Dispose();
+                bmp = null;
+                
+                
+                
+                
+                if(i == files.Length)
+                {
+                    i = 0;
+                }
+                System.Threading.Thread.Sleep(FR);
+            }
+            
+        }
+
+        
 
         public static string GenerateFileContents(string pso2BinDirectory)
         {
@@ -202,7 +249,7 @@ namespace SLauncher
                 // Create a process start info
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    WorkingDirectory = Properties.Settings.Default.gamedirectory,
+                    WorkingDirectory = exePath,
                     FileName = "pso2.exe",
                     Verb = "runas",
                     Arguments = arguments,
@@ -488,11 +535,13 @@ namespace SLauncher
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            string strExeFilePath = Properties.Settings.Default.gamedirectory;
-            string strWorkPath = Properties.Settings.Default.gamedirectory;
+            dynamic jsettings = JsonConvert.DeserializeObject(File.ReadAllText(pathdir));
+            string strExeFilePath = jsettings["gamedirectory"];
+            string strWorkPath = jsettings["gamedirectory"];
             var magic = GenerateFileContents(strWorkPath);
             WriteStringToFile(magic, strWorkPath + "//tweaker.bin");
-            LaunchExecutable(strWorkPath + "//pso2.exe", "-pson2 -pson2");
+            
+            LaunchExecutable(strWorkPath, "-pson2 -pson2");
             int dbg = 1;
         }
 

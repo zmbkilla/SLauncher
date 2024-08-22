@@ -741,6 +741,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E779876E54C51DDCAC73FFB800F33822"
+        "OwnerKey" = "8:_72A4C3933DBA4269828C8357DCFFCCCD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E86D0F64F5783E493BEC5AA2386ACA23"
         "OwnerKey" = "8:_72A4C3933DBA4269828C8357DCFFCCCD"
         "MsmSig" = "8:_UNDEFINED"
@@ -869,6 +875,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E4078905038EA26A56DF0AEF68986AE7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E779876E54C51DDCAC73FFB800F33822"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -5203,6 +5215,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E779876E54C51DDCAC73FFB800F33822"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E779876E54C51DDCAC73FFB800F33822"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D2A4DE78CD5644CFA02DEE24299B2C31"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E86D0F64F5783E493BEC5AA2386ACA23"
             {
             "AssemblyRegister" = "3:1"
@@ -5589,15 +5632,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Starlight Launcher"
-        "ProductCode" = "8:{93215B36-1B8A-4EB3-AAFC-D20C91AD5761}"
-        "PackageCode" = "8:{B179CC59-7EB3-4ABA-B3FF-EFA6100E53E0}"
+        "ProductCode" = "8:{F39AAF4D-0C96-4CB6-B6D9-144D64200FAD}"
+        "PackageCode" = "8:{114E2593-6446-4524-8BD9-A693F5277288}"
         "UpgradeCode" = "8:{9AD51D2C-ACF6-4C8F-8E8C-855855904968}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.0.54"
+        "ProductVersion" = "8:0.0.56"
         "Manufacturer" = "8:SL"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
