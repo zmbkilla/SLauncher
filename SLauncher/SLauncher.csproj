@@ -129,6 +129,7 @@
     <Compile Include="TrPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="xmlreader.cs" />
     <None Include="Resources\LUPDATE_BTN.png" />
     <None Include="Resources\LUPDATE_BTNDWN.png" />
     <None Include="Resources\LUPDATE_BTNMO.png" />
@@ -235,7 +236,6 @@
     <Content Include="Resources\default">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="SLauncher_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

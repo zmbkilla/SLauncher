@@ -27,6 +27,7 @@ using System.Security.Principal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using System.Runtime.CompilerServices;
 
 
 namespace SLauncher
@@ -255,18 +256,38 @@ namespace SLauncher
                     Arguments = arguments,
 
                 };
-
+                NotifyIcon NI = new NotifyIcon();
+                NI.Visible = false;
                 // Start the process
-                using (Process process = new Process { StartInfo = startInfo })
-                {
+                Process process = new Process { StartInfo = startInfo };
+                int appcount = 0;
                     process.Start();
+                NI.Text = "Game has launched. Will automatically exit in " + appcount.ToString() + " seconds";
+                while (!process.HasExited && process.MainWindowTitle == "Phantasy Star Online 2")
+                {
+                    System.Threading.Thread.Sleep(100);
+                    appcount++;
+                    if (appcount == 100) { 
+                    Application.Exit();
+                    }
 
-                    // Optionally, you can read the standard output if needed
-                    // string output = process.StandardOutput.ReadToEnd();
-                    // Console.WriteLine(output);
-
-                    //process.WaitForExit();
                 }
+                Form form1 = Form.ActiveForm;
+                form1.WindowState = FormWindowState.Minimized;
+                if(form1.WindowState == FormWindowState.Minimized)
+                {
+                    NI.Text = "PSO2 is running";
+                    NI.Visible = true;
+                    NI.Icon = Properties.Resources.icon;
+                    
+                }
+
+                while (!process.HasExited)
+                {
+                    System.Threading.Thread.Sleep(1);
+                }
+                Application.Exit();
+
             }
             catch (Exception ex)
             {
