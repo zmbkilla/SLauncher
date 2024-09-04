@@ -481,7 +481,9 @@ namespace SLauncher
         }
         private void Settings_Load(object sender, EventArgs e)
         {
-            setadd = Properties.Settings.Default.settingdirectory;
+            dynamic jset = JsonConvert.DeserializeObject(File.ReadAllText(Directory.GetCurrentDirectory() + "\\json\\settings.json"));
+            
+            setadd = jset["settingdirectory"];
             bool load_fin = false;
             bool Set_val = true;
 
@@ -505,6 +507,75 @@ namespace SLauncher
             //load initial setting panel
             //panel2.SendToBack();
             //panel2.Enabled = false;
+            string[] iniContent = File.ReadAllLines(setadd+"\\user.pso2");
+            Dictionary<string,object> settingparameters = new Dictionary<string,object>();
+            Dictionary<string, object> NoticeP = new Dictionary<string, object>();
+            foreach (var lines in iniContent)
+            {
+                var trimmed = lines.ToString().Trim();
+                if (trimmed.StartsWith("Ini")|| trimmed.StartsWith("Config"))
+                {
+                    continue;
+                }
+                Match match = Regex.Match(trimmed, @"(\w+) = (\S+),");
+                if (trimmed.StartsWith("Motice"))
+                {
+
+                    if ((match.Success))
+                    {
+                        string parameter = match.Groups[1].Value;
+                        string Pvalue = match.Groups[2].Value;
+                        try
+                        {
+                            if (int.TryParse(Pvalue, out int Ivalue))
+                            {
+                                NoticeP.Add(parameter, Ivalue);
+                            }
+                            else if (bool.TryParse(Pvalue, out bool Bvalue))
+                            {
+                                NoticeP.Add(parameter, Bvalue);
+                            }
+                            else
+                            {
+                                NoticeP.Add(parameter, Pvalue);
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+
+                }
+                
+                if ((match.Success))
+                {
+                    string parameter =  match.Groups[1].Value;
+                    string Pvalue = match.Groups[2].Value;
+                    try
+                    {
+                        if(int.TryParse(Pvalue,out int Ivalue))
+                        {
+                            settingparameters.Add(parameter, Ivalue);
+                        }
+                        else if(bool.TryParse(Pvalue,out bool Bvalue))
+                        {
+                            settingparameters.Add(parameter,Bvalue);
+                        }
+                        else
+                        {
+                            settingparameters.Add(parameter,Pvalue);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                
+            }
+            string dbg = "0";
+
             gameD.Text = settingfil["gamedirectory"];
             settingbox.SelectedIndex = 0;
 
