@@ -154,7 +154,7 @@ namespace SLauncher
             if (filepath != "" || filepath == null)
             {
                 //old link https://onedrive.live.com/download?resid=ADE1D97E92AEC8BE%21403144&authkey=!AN7Xv7If2YMHH88
-                webClient.DownloadFileAsync(new Uri("http://66.23.193.37/download/game.7z"), @filepath + "\\game.7z");
+                webClient.DownloadFileAsync(new Uri("insertlinkhere"), @filepath + "\\game.7z");
             }
             else
             {
