@@ -5,4 +5,4 @@ Code is depracated. Currently update to the new launcher using the latest build 
 
 <h1> Notes</h1>
 
-- When setting locations for client and settings directory, ensure you use double slash \\ instead of a single slash
+- When setting locations for client and settings directory, ensure you use double slash \\\\ instead of a single slash
